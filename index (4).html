@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>라이어게임</title>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --card: #1c1c27;
+      --border: #2a2a3d;
+      --accent: #e63946;
+      --accent2: #f4a261;
+      --text: #f0f0f5;
+      --muted: #7c7c99;
+      --success: #2ec4b6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    #root {
+      width: 100%;
+      max-width: 480px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+    }
+
+    /* ── 공통 ── */
+    .screen {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      padding: 28px 24px;
+      animation: fadeIn 0.3s ease;
+    }
+    .screen.active { display: flex; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 36px;
+      letter-spacing: 2px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 1px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #c1121f);
+      color: white;
+    }
+    .btn-primary:active { transform: scale(0.97); }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:active { transform: scale(0.97); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* ── 홈 화면 ── */
+    #screen-home {
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .home-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .mode-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .mode-btn:active { transform: scale(0.98); }
+    .mode-btn.selected {
+      border-color: var(--accent);
+      background: rgba(230, 57, 70, 0.1);
+    }
+
+    .mode-icon {
+      font-size: 32px;
+      width: 48px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .mode-info h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .mode-info p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── 설정 화면 ── */
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+    }
+
+    .stepper-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: none;
+      background: var(--card);
+      color: var(--text);
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .stepper-btn:active { background: var(--border); }
+
+    .stepper-val {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 28px;
+      color: var(--text);
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .cat-btn {
+      padding: 14px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .cat-btn.selected {
+      border-color: var(--accent);
+      background: rgba(230, 57, 70, 0.12);
+      color: var(--text);
+    }
+    .cat-btn:active { transform: scale(0.96); }
+
+    /* ── 역할 확인 화면 ── */
+    #screen-role {
+      justify-content: space-between;
+    }
+
+    .player-indicator {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .player-number {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 64px;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .player-label {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .role-card {
+      border-radius: 20px;
+      padding: 40px 28px;
+      text-align: center;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .role-card.citizen {
+      background: linear-gradient(135deg, #1a2a3a, #1c2d40);
+      border: 1px solid #2a4a6a;
+    }
+
+    .role-card.liar {
+      background: linear-gradient(135deg, #2a1a1a, #3d1c1c);
+      border: 1px solid #6a2a2a;
+    }
+
+    .role-card.hidden {
+      background: var(--card);
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .role-emoji {
+      font-size: 56px;
+      margin-bottom: 16px;
+    }
+
+    .role-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 22px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .role-word {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .role-word.liar-text {
+      font-size: 18px;
+      color: var(--accent);
+      line-height: 1.6;
+    }
+
+    .tap-hint {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* ── 타이머 화면 ── */
+    #screen-timer {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .timer-ring {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 32px auto;
+    }
+
+    .timer-ring svg {
+      transform: rotate(-90deg);
+    }
+
+    .timer-ring circle {
+      fill: none;
+      stroke-width: 8;
+    }
+
+    .timer-ring .bg { stroke: var(--border); }
+    .timer-ring .progress {
+      stroke: var(--accent);
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s linear;
+    }
+
+    .timer-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .timer-seconds {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 52px;
+      line-height: 1;
+    }
+
+    .timer-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 2px;
+      margin-top: 4px;
+    }
+
+    .timer-controls {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      margin-top: 24px;
+    }
+
+    /* ── 투표 화면 ── */
+    .vote-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .vote-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .vote-item.selected {
+      border-color: var(--accent);
+      background: rgba(230, 57, 70, 0.1);
+    }
+
+    .vote-item:active { transform: scale(0.98); }
+
+    .vote-player {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .vote-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    .vote-name { font-size: 15px; font-weight: 500; }
+
+    .vote-check {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .vote-item.selected .vote-check {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ── 결과 화면 ── */
+    #screen-result {
+      align-items: center;
+      text-align: center;
+    }
+
+    .result-badge {
+      font-size: 72px;
+      margin: 24px 0;
+    }
+
+    .result-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 28px;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .result-desc {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .reveal-cards {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .reveal-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+
+    .reveal-item.is-liar {
+      border-color: var(--accent);
+      background: rgba(230, 57, 70, 0.08);
+    }
+
+    .reveal-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .reveal-role-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+    }
+
+    .badge-liar {
+      background: rgba(230, 57, 70, 0.2);
+      color: var(--accent);
+    }
+
+    .badge-citizen {
+      background: rgba(46, 196, 182, 0.15);
+      color: var(--success);
+    }
+
+    .reveal-word {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .result-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    /* ── 스크롤 ── */
+    .scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .scroll-area::-webkit-scrollbar { display: none; }
+
+    /* ── 하단 고정 버튼 ── */
+    .bottom-btn {
+      padding-top: 16px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 20px 0;
+    }
+
+    .gap-12 { display: flex; flex-direction: column; gap: 12px; }
+    .mt-auto { margin-top: auto; }
+    .mb-8 { margin-bottom: 8px; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+    .text-center { text-align: center; }
+    .text-muted { color: var(--muted); font-size: 13px; }
+  </style>
+</head>
+<body>
+<div id="root">
+
+  <!-- ── 홈 ── -->
+  <div id="screen-home" class="screen active">
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <div class="logo">LIAR GAME</div>
+      <div class="subtitle">누가 거짓말을 하고 있을까?</div>
+
+      <div class="section-label">모드 선택</div>
+      <div class="home-btns">
+        <button class="mode-btn selected" onclick="selectMode('basic')" id="btn-basic">
+          <div class="mode-icon">🎭</div>
+          <div class="mode-info">
+            <h3>기본 모드</h3>
+            <p>라이어는 제시어 없이 시작<br>시민들의 힌트로 버텨야 함</p>
+          </div>
+        </button>
+        <button class="mode-btn" onclick="selectMode('spy')" id="btn-spy">
+          <div class="mode-icon">🕵️</div>
+          <div class="mode-info">
+            <h3>스파이 모드</h3>
+            <p>라이어도 유사한 단어를 받음<br>더 교묘하게 속여야 함</p>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="bottom-btn">
+      <button class="btn btn-primary" onclick="goToSetup()">다음</button>
+    </div>
+  </div>
+
+  <!-- ── 설정 ── -->
+  <div id="screen-setup" class="screen">
+    <div class="logo" style="font-size:24px; margin-bottom:24px;">게임 설정</div>
+
+    <div class="scroll-area">
+      <div class="card">
+        <div class="section-label">플레이어 수</div>
+        <div class="stepper">
+          <button class="stepper-btn" onclick="changePlayer(-1)">−</button>
+          <span class="stepper-val" id="player-count">4</span>
+          <button class="stepper-btn" onclick="changePlayer(1)">+</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-label">라이어 수</div>
+        <div class="stepper">
+          <button class="stepper-btn" onclick="changeLiar(-1)">−</button>
+          <span class="stepper-val" id="liar-count">1</span>
+          <button class="stepper-btn" onclick="changeLiar(1)">+</button>
+        </div>
+        <div class="text-muted" style="margin-top:10px; text-align:center;">최대 3명</div>
+      </div>
+
+      <div class="card">
+        <div class="section-label">토론 시간</div>
+        <div class="stepper">
+          <button class="stepper-btn" onclick="changeTime(-30)">−</button>
+          <span class="stepper-val" id="timer-setup">3<span style="font-size:16px;">분</span></span>
+          <button class="stepper-btn" onclick="changeTime(30)">+</button>
+        </div>
+        <div class="text-muted" style="margin-top:10px; text-align:center;" id="timer-desc">180초</div>
+      </div>
+
+      <div class="card">
+        <div class="section-label">카테고리</div>
+        <div class="category-grid" id="category-grid"></div>
+      </div>
+    </div>
+
+    <div class="bottom-btn gap-12">
+      <button class="btn btn-primary" onclick="startGame()">게임 시작</button>
+      <button class="btn btn-ghost" onclick="goTo('home')">뒤로</button>
+    </div>
+  </div>
+
+  <!-- ── 역할 확인 ── -->
+  <div id="screen-role" class="screen">
+    <div class="player-indicator">
+      <div class="player-number" id="role-player-num">1</div>
+      <div class="player-label">번 플레이어 확인 중</div>
+    </div>
+
+    <div id="role-card-area" style="flex:1; display:flex; flex-direction:column;">
+      <div class="role-card hidden" id="role-card" onclick="revealRole()">
+        <div class="role-emoji">👆</div>
+        <div class="role-title">탭해서 확인</div>
+        <div class="tap-hint">다른 사람이 보지 못하게 하세요</div>
+      </div>
+    </div>
+
+    <div class="bottom-btn">
+      <button class="btn btn-primary" id="role-next-btn" onclick="nextPlayer()" style="display:none;">
+        다음 플레이어 →
+      </button>
+    </div>
+  </div>
+
+  <!-- ── 타이머 ── -->
+  <div id="screen-timer" class="screen">
+    <div class="logo" style="font-size:22px;">토론 시간</div>
+    <div class="text-muted mb-16">모두 돌아가며 힌트를 말하세요</div>
+
+    <div class="timer-ring">
+      <svg width="200" height="200" viewBox="0 0 200 200">
+        <circle class="bg" cx="100" cy="100" r="88" />
+        <circle class="progress" id="timer-circle" cx="100" cy="100" r="88"
+          stroke-dasharray="553"
+          stroke-dashoffset="0" />
+      </svg>
+      <div class="timer-text">
+        <div class="timer-seconds" id="timer-display">180</div>
+        <div class="timer-label">seconds</div>
+      </div>
+    </div>
+
+    <div class="timer-controls">
+      <button class="btn btn-secondary" style="flex:1" onclick="toggleTimer()" id="timer-toggle-btn">⏸ 일시정지</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="goToVote()">투표 →</button>
+    </div>
+  </div>
+
+  <!-- ── 투표 ── -->
+  <div id="screen-vote" class="screen">
+    <div class="logo" style="font-size:22px; margin-bottom:8px;">투표</div>
+    <div class="text-muted mb-24">라이어라고 생각하는 플레이어를 선택하세요</div>
+
+    <div class="scroll-area">
+      <div class="vote-list" id="vote-list"></div>
+    </div>
+
+    <div class="bottom-btn">
+      <button class="btn btn-primary" onclick="showResult()" id="vote-confirm-btn">결과 확인</button>
+    </div>
+  </div>
+
+  <!-- ── 결과 ── -->
+  <div id="screen-result" class="screen">
+    <div class="result-badge" id="result-badge">🎭</div>
+    <div class="result-title" id="result-title">결과</div>
+    <div class="result-desc" id="result-desc"></div>
+
+    <div class="reveal-cards" id="reveal-cards"></div>
+
+    <div class="result-btns">
+      <button class="btn btn-primary" onclick="playAgain()">같은 설정으로 다시</button>
+      <button class="btn btn-ghost" onclick="goTo('home')">처음으로</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── 상태 ──
+  let state = {
+    mode: 'basic',
+    players: 4,
+    liars: 1,
+    timerSecs: 180,
+    categories: ['동물'],
+    currentPlayer: 0,
+    roles: [],        // { player: N, isLiar: bool, word: str }
+    revealed: false,
+    timerInterval: null,
+    timerRemain: 180,
+    timerRunning: false,
+    votedFor: null,
+    words: {}
+  };
+
+  const CATEGORIES = ['동물', '직업', '음식', '국가', '랜드마크'];
+
+  // ── 단어 DB 로드 ──
+  async function loadWords() {
+    try {
+      const res = await fetch('./words.json');
+      state.words = await res.json();
+    } catch(e) {
+      console.error('단어 로드 실패', e);
+    }
+  }
+  loadWords();
+
+  // ── 화면 전환 ──
+  function goTo(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + id).classList.add('active');
+  }
+
+  // ── 홈 ──
+  function selectMode(mode) {
+    state.mode = mode;
+    document.getElementById('btn-basic').classList.toggle('selected', mode === 'basic');
+    document.getElementById('btn-spy').classList.toggle('selected', mode === 'spy');
+  }
+
+  function goToSetup() {
+    renderCategoryGrid();
+    goTo('setup');
+  }
+
+  // ── 설정 ──
+  function renderCategoryGrid() {
+    const grid = document.getElementById('category-grid');
+    grid.innerHTML = CATEGORIES.map(cat => `
+      <button class="cat-btn ${state.categories.includes(cat) ? 'selected' : ''}"
+              onclick="toggleCategory('${cat}')">
+        ${catEmoji(cat)} ${cat}
+      </button>
+    `).join('');
+  }
+
+  function catEmoji(cat) {
+    const map = { '동물':'🐾', '직업':'💼', '음식':'🍜', '국가':'🌍', '랜드마크':'🗺️' };
+    return map[cat] || '📌';
+  }
+
+  function toggleCategory(cat) {
+    if (state.categories.includes(cat)) {
+      if (state.categories.length === 1) return; // 최소 1개
+      state.categories = state.categories.filter(c => c !== cat);
+    } else {
+      state.categories.push(cat);
+    }
+    renderCategoryGrid();
+  }
+
+  function changePlayer(d) {
+    state.players = Math.max(3, Math.min(10, state.players + d));
+    document.getElementById('player-count').textContent = state.players;
+    // 라이어가 플레이어 수 초과하지 않도록
+    const maxLiar = Math.min(3, Math.floor(state.players / 2));
+    state.liars = Math.min(state.liars, maxLiar);
+    document.getElementById('liar-count').textContent = state.liars;
+  }
+
+  function changeLiar(d) {
+    const maxLiar = Math.min(3, Math.floor(state.players / 2));
+    state.liars = Math.max(1, Math.min(maxLiar, state.liars + d));
+    document.getElementById('liar-count').textContent = state.liars;
+  }
+
+  function changeTime(d) {
+    state.timerSecs = Math.max(30, Math.min(600, state.timerSecs + d));
+    const mins = Math.floor(state.timerSecs / 60);
+    const secs = state.timerSecs % 60;
+    document.getElementById('timer-setup').innerHTML =
+      secs === 0
+        ? `${mins}<span style="font-size:16px;">분</span>`
+        : `${state.timerSecs}<span style="font-size:16px;">초</span>`;
+    document.getElementById('timer-desc').textContent = `${state.timerSecs}초`;
+  }
+
+  // ── 게임 시작 ──
+  function startGame() {
+    if (!Object.keys(state.words).length) {
+      alert('단어 DB를 불러오는 중입니다. 잠시 후 다시 시도하세요.');
+      return;
+    }
+
+    // 카테고리에서 랜덤 단어 선택
+    const availableCats = state.categories.filter(c => state.words[c]);
+    if (!availableCats.length) { alert('카테고리를 선택하세요.'); return; }
+
+    const cat = availableCats[Math.floor(Math.random() * availableCats.length)];
+    const wordList = state.words[cat];
+    const wordObj = wordList[Math.floor(Math.random() * wordList.length)];
+
+    const citizenWord = wordObj.word;
+    let liarWord = '???';
+    if (state.mode === 'spy' && wordObj.similar && wordObj.similar.length) {
+      liarWord = wordObj.similar[Math.floor(Math.random() * wordObj.similar.length)];
+    }
+
+    // 역할 배정
+    const playerNums = Array.from({length: state.players}, (_, i) => i + 1);
+    const shuffled = [...playerNums].sort(() => Math.random() - 0.5);
+    const liarPlayers = shuffled.slice(0, state.liars);
+
+    state.roles = playerNums.map(n => ({
+      player: n,
+      isLiar: liarPlayers.includes(n),
+      word: liarPlayers.includes(n) ? liarWord : citizenWord
+    }));
+
+    state.currentPlayer = 0;
+    state.revealed = false;
+    renderRoleScreen();
+    goTo('role');
+  }
+
+  // ── 역할 확인 ──
+  function renderRoleScreen() {
+    const idx = state.currentPlayer;
+    document.getElementById('role-player-num').textContent = idx + 1;
+    document.getElementById('role-next-btn').style.display = 'none';
+    state.revealed = false;
+
+    const card = document.getElementById('role-card');
+    card.className = 'role-card hidden';
+    card.onclick = revealRole;
+    card.innerHTML = `
+      <div class="role-emoji">👆</div>
+      <div class="role-title">탭해서 확인</div>
+      <div class="tap-hint">다른 사람이 보지 못하게 하세요</div>
+    `;
+  }
+
+  function revealRole() {
+    if (state.revealed) return;
+    state.revealed = true;
+
+    const role = state.roles[state.currentPlayer];
+    const card = document.getElementById('role-card');
+    card.onclick = null;
+
+    if (role.isLiar) {
+      card.className = 'role-card liar';
+      if (state.mode === 'spy') {
+        card.innerHTML = `
+          <div class="role-emoji">🕵️</div>
+          <div class="role-title" style="color:#e63946;">스파이</div>
+          <div class="role-word">${role.word}</div>
+          <div class="tap-hint" style="margin-top:16px;">당신의 단어입니다<br>라이어임을 들키지 마세요</div>
+        `;
+      } else {
+        card.innerHTML = `
+          <div class="role-emoji">🎭</div>
+          <div class="role-title" style="color:#e63946;">라이어</div>
+          <div class="role-word liar-text">당신은 라이어입니다<br>제시어를 모릅니다<br>시민처럼 행동하세요</div>
+        `;
+      }
+    } else {
+      card.className = 'role-card citizen';
+      card.innerHTML = `
+        <div class="role-emoji">👥</div>
+        <div class="role-title" style="color:#2ec4b6;">시민</div>
+        <div class="role-word">${role.word}</div>
+        <div class="tap-hint" style="margin-top:16px;">제시어를 기억하세요<br>라이어를 찾아내세요</div>
+      `;
+    }
+
+    const isLast = state.currentPlayer >= state.players - 1;
+    const btn = document.getElementById('role-next-btn');
+    btn.style.display = 'block';
+    btn.textContent = isLast ? '토론 시작 🗣️' : `다음 플레이어 →`;
+  }
+
+  function nextPlayer() {
+    state.currentPlayer++;
+    if (state.currentPlayer >= state.players) {
+      startTimer();
+      goTo('timer');
+    } else {
+      renderRoleScreen();
+    }
+  }
+
+  // ── 타이머 ──
+  function startTimer() {
+    clearInterval(state.timerInterval);
+    state.timerRemain = state.timerSecs;
+    state.timerRunning = true;
+    updateTimerUI();
+    state.timerInterval = setInterval(tickTimer, 1000);
+    document.getElementById('timer-toggle-btn').textContent = '⏸ 일시정지';
+  }
+
+  function tickTimer() {
+    if (!state.timerRunning) return;
+    state.timerRemain--;
+    updateTimerUI();
+    if (state.timerRemain <= 0) {
+      clearInterval(state.timerInterval);
+      goToVote();
+    }
+  }
+
+  function updateTimerUI() {
+    document.getElementById('timer-display').textContent = state.timerRemain;
+    const circ = document.getElementById('timer-circle');
+    const total = 553;
+    const progress = state.timerRemain / state.timerSecs;
+    circ.style.strokeDashoffset = total * (1 - progress);
+
+    // 남은 시간에 따라 색 변경
+    if (state.timerRemain <= 30) {
+      circ.style.stroke = '#e63946';
+    } else if (state.timerRemain <= 60) {
+      circ.style.stroke = '#f4a261';
+    } else {
+      circ.style.stroke = '#e63946';
+    }
+  }
+
+  function toggleTimer() {
+    state.timerRunning = !state.timerRunning;
+    document.getElementById('timer-toggle-btn').textContent =
+      state.timerRunning ? '⏸ 일시정지' : '▶ 재개';
+  }
+
+  function goToVote() {
+    clearInterval(state.timerInterval);
+    renderVoteList();
+    goTo('vote');
+  }
+
+  // ── 투표 ──
+  function renderVoteList() {
+    state.votedFor = null;
+    const list = document.getElementById('vote-list');
+    list.innerHTML = Array.from({length: state.players}, (_, i) => `
+      <div class="vote-item" id="vote-${i+1}" onclick="selectVote(${i+1})">
+        <div class="vote-player">
+          <div class="vote-avatar">${i+1}</div>
+          <div class="vote-name">${i+1}번 플레이어</div>
+        </div>
+        <div class="vote-check" id="check-${i+1}"></div>
+      </div>
+    `).join('');
+  }
+
+  function selectVote(n) {
+    // 이전 선택 해제
+    if (state.votedFor) {
+      document.getElementById('vote-' + state.votedFor).classList.remove('selected');
+      document.getElementById('check-' + state.votedFor).textContent = '';
+    }
+    state.votedFor = n;
+    document.getElementById('vote-' + n).classList.add('selected');
+    document.getElementById('check-' + n).textContent = '✓';
+  }
+
+  // ── 결과 ──
+  function showResult() {
+    if (!state.votedFor) {
+      alert('투표할 플레이어를 선택하세요.');
+      return;
+    }
+
+    const votedRole = state.roles[state.votedFor - 1];
+    const liarsCaught = votedRole.isLiar;
+
+    document.getElementById('result-badge').textContent = liarsCaught ? '🎉' : '😈';
+    document.getElementById('result-title').textContent = liarsCaught ? '시민 승리!' : '라이어 승리!';
+    document.getElementById('result-desc').textContent = liarsCaught
+      ? `${state.votedFor}번 플레이어가 라이어였습니다!\n시민들이 라이어를 찾아냈어요.`
+      : `${state.votedFor}번 플레이어는 시민이었습니다!\n라이어가 살아남았어요.`;
+
+    // 전체 역할 공개
+    const cards = document.getElementById('reveal-cards');
+    cards.innerHTML = state.roles.map(r => `
+      <div class="reveal-item ${r.isLiar ? 'is-liar' : ''}">
+        <div class="reveal-left">
+          <div class="vote-avatar" style="width:36px;height:36px;font-size:14px;">${r.player}</div>
+          <span class="reveal-role-badge ${r.isLiar ? 'badge-liar' : 'badge-citizen'}">
+            ${r.isLiar ? (state.mode === 'spy' ? '스파이' : '라이어') : '시민'}
+          </span>
+        </div>
+        <div class="reveal-word">${r.isLiar && state.mode !== 'spy' ? '제시어 없음' : r.word}</div>
+      </div>
+    `).join('');
+
+    goTo('result');
+  }
+
+  function playAgain() {
+    startGame();
+    goTo('role');
+  }
+</script>
+</body>
+</html>
