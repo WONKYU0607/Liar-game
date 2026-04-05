@@ -7,15 +7,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0a0a0f;
-      --surface: #13131a;
-      --card: #1c1c27;
-      --border: #2a2a3d;
-      --accent: #e63946;
-      --accent2: #f4a261;
-      --text: #f0f0f5;
-      --muted: #7c7c99;
-      --success: #2ec4b6;
+      --bg: #0d0d1a;
+      --surface: #12122a;
+      --card: #1a1a35;
+      --border: #2e2e55;
+      --accent: #7b2fff;
+      --accent2: #e040fb;
+      --text: #ffffff;
+      --muted: #9090bb;
+      --success: #34d399;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,7 +41,6 @@
       padding: 0;
     }
 
-    /* ── 공통 ── */
     .screen {
       display: none;
       flex-direction: column;
@@ -91,7 +90,7 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #c1121f);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: white;
     }
     .btn-primary:active { transform: scale(0.97); }
@@ -126,7 +125,6 @@
       margin-bottom: 20px;
     }
 
-    /* ── 홈 화면 ── */
     #screen-home {
       justify-content: center;
       gap: 12px;
@@ -154,7 +152,7 @@
     .mode-btn:active { transform: scale(0.98); }
     .mode-btn.selected {
       border-color: var(--accent);
-      background: rgba(230, 57, 70, 0.1);
+      background: rgba(123, 47, 255, 0.15);
     }
 
     .mode-icon {
@@ -175,7 +173,6 @@
       line-height: 1.5;
     }
 
-    /* ── 설정 화면 ── */
     .stepper {
       display: flex;
       align-items: center;
@@ -231,12 +228,11 @@
     }
     .cat-btn.selected {
       border-color: var(--accent);
-      background: rgba(230, 57, 70, 0.12);
+      background: rgba(123, 47, 255, 0.15);
       color: var(--text);
     }
     .cat-btn:active { transform: scale(0.96); }
 
-    /* ── 역할 확인 화면 ── */
     #screen-role {
       justify-content: space-between;
     }
@@ -282,8 +278,8 @@
     }
 
     .role-card.liar {
-      background: linear-gradient(135deg, #2a1a1a, #3d1c1c);
-      border: 1px solid #6a2a2a;
+      background: linear-gradient(135deg, #1a0a35, #2a1040);
+      border: 1px solid #7b2fff;
     }
 
     .role-card.hidden {
@@ -312,7 +308,7 @@
 
     .role-word.liar-text {
       font-size: 18px;
-      color: var(--accent);
+      color: #c084fc;
       line-height: 1.6;
     }
 
@@ -322,7 +318,6 @@
       margin-top: 8px;
     }
 
-    /* ── 타이머 화면 ── */
     #screen-timer {
       align-items: center;
       justify-content: center;
@@ -381,7 +376,6 @@
       margin-top: 24px;
     }
 
-    /* ── 투표 화면 ── */
     .vote-list {
       display: flex;
       flex-direction: column;
@@ -403,7 +397,7 @@
 
     .vote-item.selected {
       border-color: var(--accent);
-      background: rgba(230, 57, 70, 0.1);
+      background: rgba(123, 47, 255, 0.1);
     }
 
     .vote-item:active { transform: scale(0.98); }
@@ -446,7 +440,6 @@
       border-color: var(--accent);
     }
 
-    /* ── 결과 화면 ── */
     #screen-result {
       align-items: center;
       text-align: center;
@@ -491,7 +484,7 @@
 
     .reveal-item.is-liar {
       border-color: var(--accent);
-      background: rgba(230, 57, 70, 0.08);
+      background: rgba(123, 47, 255, 0.08);
     }
 
     .reveal-left {
@@ -509,12 +502,12 @@
     }
 
     .badge-liar {
-      background: rgba(230, 57, 70, 0.2);
-      color: var(--accent);
+      background: rgba(123, 47, 255, 0.2);
+      color: #c084fc;
     }
 
     .badge-citizen {
-      background: rgba(46, 196, 182, 0.15);
+      background: rgba(52, 211, 153, 0.15);
       color: var(--success);
     }
 
@@ -530,7 +523,6 @@
       width: 100%;
     }
 
-    /* ── 스크롤 ── */
     .scroll-area {
       flex: 1;
       overflow-y: auto;
@@ -539,20 +531,8 @@
 
     .scroll-area::-webkit-scrollbar { display: none; }
 
-    /* ── 하단 고정 버튼 ── */
-    .bottom-btn {
-      padding-top: 16px;
-    }
-
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 20px 0;
-    }
-
+    .bottom-btn { padding-top: 16px; }
     .gap-12 { display: flex; flex-direction: column; gap: 12px; }
-    .mt-auto { margin-top: auto; }
-    .mb-8 { margin-bottom: 8px; }
     .mb-16 { margin-bottom: 16px; }
     .mb-24 { margin-bottom: 24px; }
     .text-center { text-align: center; }
@@ -562,7 +542,6 @@
 <body>
 <div id="root">
 
-  <!-- ── 홈 ── -->
   <div id="screen-home" class="screen active">
     <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
       <div class="logo">LIAR GAME</div>
@@ -592,7 +571,6 @@
     </div>
   </div>
 
-  <!-- ── 설정 ── -->
   <div id="screen-setup" class="screen">
     <div class="logo" style="font-size:24px; margin-bottom:24px;">게임 설정</div>
 
@@ -619,9 +597,9 @@
       <div class="card">
         <div class="section-label">토론 시간</div>
         <div class="stepper">
-          <button class="stepper-btn" onclick="changeTime(-30)">−</button>
+          <button class="stepper-btn" onclick="changeTime(-60)">−</button>
           <span class="stepper-val" id="timer-setup">3<span style="font-size:16px;">분</span></span>
-          <button class="stepper-btn" onclick="changeTime(30)">+</button>
+          <button class="stepper-btn" onclick="changeTime(60)">+</button>
         </div>
         <div class="text-muted" style="margin-top:10px; text-align:center;" id="timer-desc">180초</div>
       </div>
@@ -638,7 +616,6 @@
     </div>
   </div>
 
-  <!-- ── 역할 확인 ── -->
   <div id="screen-role" class="screen">
     <div class="player-indicator">
       <div class="player-number" id="role-player-num">1</div>
@@ -660,7 +637,6 @@
     </div>
   </div>
 
-  <!-- ── 타이머 ── -->
   <div id="screen-timer" class="screen">
     <div class="logo" style="font-size:22px;">토론 시간</div>
     <div class="text-muted mb-16">모두 돌아가며 힌트를 말하세요</div>
@@ -684,7 +660,6 @@
     </div>
   </div>
 
-  <!-- ── 투표 ── -->
   <div id="screen-vote" class="screen">
     <div class="logo" style="font-size:22px; margin-bottom:8px;">투표</div>
     <div class="text-muted mb-24">라이어라고 생각하는 플레이어를 선택하세요</div>
@@ -694,11 +669,10 @@
     </div>
 
     <div class="bottom-btn">
-      <button class="btn btn-primary" onclick="showResult()" id="vote-confirm-btn">결과 확인</button>
+      <button class="btn btn-primary" onclick="showResult()">결과 확인</button>
     </div>
   </div>
 
-  <!-- ── 결과 ── -->
   <div id="screen-result" class="screen">
     <div class="result-badge" id="result-badge">🎭</div>
     <div class="result-title" id="result-title">결과</div>
@@ -715,7 +689,6 @@
 </div>
 
 <script>
-  // ── 상태 ──
   let state = {
     mode: 'basic',
     players: 4,
@@ -723,7 +696,7 @@
     timerSecs: 180,
     categories: ['동물'],
     currentPlayer: 0,
-    roles: [],        // { player: N, isLiar: bool, word: str }
+    roles: [],
     revealed: false,
     timerInterval: null,
     timerRemain: 180,
@@ -734,7 +707,6 @@
 
   const CATEGORIES = ['동물', '직업', '음식', '국가', '랜드마크'];
 
-  // ── 단어 DB 로드 ──
   async function loadWords() {
     try {
       const res = await fetch('./words.json');
@@ -745,13 +717,11 @@
   }
   loadWords();
 
-  // ── 화면 전환 ──
   function goTo(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('screen-' + id).classList.add('active');
   }
 
-  // ── 홈 ──
   function selectMode(mode) {
     state.mode = mode;
     document.getElementById('btn-basic').classList.toggle('selected', mode === 'basic');
@@ -763,7 +733,6 @@
     goTo('setup');
   }
 
-  // ── 설정 ──
   function renderCategoryGrid() {
     const grid = document.getElementById('category-grid');
     grid.innerHTML = CATEGORIES.map(cat => `
@@ -780,19 +749,13 @@
   }
 
   function toggleCategory(cat) {
-    if (state.categories.includes(cat)) {
-      if (state.categories.length === 1) return; // 최소 1개
-      state.categories = state.categories.filter(c => c !== cat);
-    } else {
-      state.categories.push(cat);
-    }
+    state.categories = [cat];
     renderCategoryGrid();
   }
 
   function changePlayer(d) {
     state.players = Math.max(3, Math.min(10, state.players + d));
     document.getElementById('player-count').textContent = state.players;
-    // 라이어가 플레이어 수 초과하지 않도록
     const maxLiar = Math.min(3, Math.floor(state.players / 2));
     state.liars = Math.min(state.liars, maxLiar);
     document.getElementById('liar-count').textContent = state.liars;
@@ -805,24 +768,21 @@
   }
 
   function changeTime(d) {
-    state.timerSecs = Math.max(30, Math.min(600, state.timerSecs + d));
+    const minSecs = 60;
+    const maxSecs = 600;
+    state.timerSecs = Math.max(minSecs, Math.min(maxSecs, state.timerSecs + d));
     const mins = Math.floor(state.timerSecs / 60);
-    const secs = state.timerSecs % 60;
     document.getElementById('timer-setup').innerHTML =
-      secs === 0
-        ? `${mins}<span style="font-size:16px;">분</span>`
-        : `${state.timerSecs}<span style="font-size:16px;">초</span>`;
+      `${mins}<span style="font-size:16px;">분</span>`;
     document.getElementById('timer-desc').textContent = `${state.timerSecs}초`;
   }
 
-  // ── 게임 시작 ──
   function startGame() {
     if (!Object.keys(state.words).length) {
       alert('단어 DB를 불러오는 중입니다. 잠시 후 다시 시도하세요.');
       return;
     }
 
-    // 카테고리에서 랜덤 단어 선택
     const availableCats = state.categories.filter(c => state.words[c]);
     if (!availableCats.length) { alert('카테고리를 선택하세요.'); return; }
 
@@ -836,7 +796,6 @@
       liarWord = wordObj.similar[Math.floor(Math.random() * wordObj.similar.length)];
     }
 
-    // 역할 배정
     const playerNums = Array.from({length: state.players}, (_, i) => i + 1);
     const shuffled = [...playerNums].sort(() => Math.random() - 0.5);
     const liarPlayers = shuffled.slice(0, state.liars);
@@ -853,7 +812,6 @@
     goTo('role');
   }
 
-  // ── 역할 확인 ──
   function renderRoleScreen() {
     const idx = state.currentPlayer;
     document.getElementById('role-player-num').textContent = idx + 1;
@@ -883,14 +841,14 @@
       if (state.mode === 'spy') {
         card.innerHTML = `
           <div class="role-emoji">🕵️</div>
-          <div class="role-title" style="color:#e63946;">스파이</div>
+          <div class="role-title" style="color:#c084fc;">스파이</div>
           <div class="role-word">${role.word}</div>
           <div class="tap-hint" style="margin-top:16px;">당신의 단어입니다<br>라이어임을 들키지 마세요</div>
         `;
       } else {
         card.innerHTML = `
           <div class="role-emoji">🎭</div>
-          <div class="role-title" style="color:#e63946;">라이어</div>
+          <div class="role-title" style="color:#c084fc;">라이어</div>
           <div class="role-word liar-text">당신은 라이어입니다<br>제시어를 모릅니다<br>시민처럼 행동하세요</div>
         `;
       }
@@ -898,7 +856,7 @@
       card.className = 'role-card citizen';
       card.innerHTML = `
         <div class="role-emoji">👥</div>
-        <div class="role-title" style="color:#2ec4b6;">시민</div>
+        <div class="role-title" style="color:#34d399;">시민</div>
         <div class="role-word">${role.word}</div>
         <div class="tap-hint" style="margin-top:16px;">제시어를 기억하세요<br>라이어를 찾아내세요</div>
       `;
@@ -920,7 +878,6 @@
     }
   }
 
-  // ── 타이머 ──
   function startTimer() {
     clearInterval(state.timerInterval);
     state.timerRemain = state.timerSecs;
@@ -947,13 +904,12 @@
     const progress = state.timerRemain / state.timerSecs;
     circ.style.strokeDashoffset = total * (1 - progress);
 
-    // 남은 시간에 따라 색 변경
     if (state.timerRemain <= 30) {
-      circ.style.stroke = '#e63946';
+      circ.style.stroke = '#e040fb';
     } else if (state.timerRemain <= 60) {
-      circ.style.stroke = '#f4a261';
+      circ.style.stroke = '#a855f7';
     } else {
-      circ.style.stroke = '#e63946';
+      circ.style.stroke = '#7b2fff';
     }
   }
 
@@ -969,7 +925,6 @@
     goTo('vote');
   }
 
-  // ── 투표 ──
   function renderVoteList() {
     state.votedFor = null;
     const list = document.getElementById('vote-list');
@@ -985,7 +940,6 @@
   }
 
   function selectVote(n) {
-    // 이전 선택 해제
     if (state.votedFor) {
       document.getElementById('vote-' + state.votedFor).classList.remove('selected');
       document.getElementById('check-' + state.votedFor).textContent = '';
@@ -995,7 +949,6 @@
     document.getElementById('check-' + n).textContent = '✓';
   }
 
-  // ── 결과 ──
   function showResult() {
     if (!state.votedFor) {
       alert('투표할 플레이어를 선택하세요.');
@@ -1011,7 +964,6 @@
       ? `${state.votedFor}번 플레이어가 라이어였습니다!\n시민들이 라이어를 찾아냈어요.`
       : `${state.votedFor}번 플레이어는 시민이었습니다!\n라이어가 살아남았어요.`;
 
-    // 전체 역할 공개
     const cards = document.getElementById('reveal-cards');
     cards.innerHTML = state.roles.map(r => `
       <div class="reveal-item ${r.isLiar ? 'is-liar' : ''}">
