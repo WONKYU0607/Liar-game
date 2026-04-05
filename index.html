@@ -237,6 +237,62 @@
     }
     .cat-btn:active { transform: scale(0.96); }
 
+    .song-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 100;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .song-overlay.active { display: flex; }
+
+    .song-sheet {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px 20px 0 0;
+      padding: 28px 24px 40px;
+      width: 100%;
+      max-width: 480px;
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to   { transform: translateY(0); }
+    }
+
+    .song-sheet-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .song-era-btns { display: flex; flex-direction: column; gap: 10px; }
+
+    .era-btn {
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.2s;
+    }
+    .era-btn:active { transform: scale(0.98); }
+    .era-btn.selected { border-color: var(--accent); background: rgba(123, 47, 255, 0.15); }
+    .era-sub { font-size: 12px; color: var(--muted); font-weight: 400; display: block; margin-top: 2px; }
+
     /* ── 역할 확인 화면 ── */
     #screen-role {
       justify-content: space-between;
@@ -733,7 +789,8 @@
     words: {}
   };
 
-  const CATEGORIES = ['동물', '직업', '음식', '국가', '랜드마크', '축구선수', '스포츠스타', '전자제품', '브랜드', '유명도시', '연예인', '노래(2000년대)', '노래(90년대)', '노래(최신)'];
+  const CATEGORIES = ['동물','직업','음식','국가','랜드마크','축구선수','스포츠스타','전자제품','브랜드','유명도시','연예인','노래'];
+  const SONG_CATS = ['노래(70-80년대)', '노래(90-00년대)', '노래(10-20년대)'];
 
   // ── 단어 DB 로드 ──
   async function loadWords() {
@@ -767,12 +824,16 @@
   // ── 설정 ──
   function renderCategoryGrid() {
     const grid = document.getElementById('category-grid');
-    grid.innerHTML = CATEGORIES.map(cat => `
-      <button class="cat-btn ${state.categories.includes(cat) ? 'selected' : ''}"
-              onclick="toggleCategory('${cat}')">
-        ${catEmoji(cat)} ${cat}
-      </button>
-    `).join('');
+    const isSongSelected = SONG_CATS.some(s => state.categories.includes(s));
+    grid.innerHTML = CATEGORIES.map(cat => {
+      if (cat === '노래') {
+        const selectedEra = SONG_CATS.find(s => state.categories.includes(s));
+        const label = selectedEra ? selectedEra.replace('노래','🎵') : '🎵 노래';
+        return `<button class="cat-btn ${selectedEra ? 'selected' : ''}" onclick="openSongOverlay()">${label}</button>`;
+      }
+      return `<button class="cat-btn ${state.categories.includes(cat) ? 'selected' : ''}"
+              onclick="toggleCategory('${cat}')">${catEmoji(cat)} ${cat}</button>`;
+    }).join('');
   }
 
   function catEmoji(cat) {
@@ -1031,6 +1092,59 @@
     startGame();
     goTo('role');
   }
+
+  function openSongOverlay() {
+    document.getElementById('song-overlay').classList.add('active');
+    // 현재 선택된 연대 표시
+    const eras = ['노래(70-80년대)', '노래(90-00년대)', '노래(10-20년대)'];
+    const ids = ['era-7080', 'era-9000', 'era-1020'];
+    eras.forEach((era, i) => {
+      document.getElementById(ids[i]).classList.toggle('selected', state.categories.includes(era));
+    });
+  }
+
+  function closeSongOverlay(e) {
+    if (e.target === document.getElementById('song-overlay')) {
+      document.getElementById('song-overlay').classList.remove('active');
+    }
+  }
+
+  function selectEra(era) {
+    state.categories = [era];
+    document.getElementById('song-overlay').classList.remove('active');
+    renderCategoryGrid();
+  }
 </script>
+
+<!-- 노래 연대 선택 오버레이 -->
+<div class="song-overlay" id="song-overlay" onclick="closeSongOverlay(event)">
+  <div class="song-sheet">
+    <div class="song-sheet-title">🎵 노래 연대 선택</div>
+    <div class="song-era-btns">
+      <button class="era-btn" id="era-7080" onclick="selectEra('노래(70-80년대)')">
+        <span>📻</span>
+        <div>
+          <div>70-80년대</div>
+          <span class="era-sub">조용필, 이문세, 나미, 이선희...</span>
+        </div>
+      </button>
+      <button class="era-btn" id="era-9000" onclick="selectEra('노래(90-00년대)')">
+        <span>🎤</span>
+        <div>
+          <div>90-00년대</div>
+          <span class="era-sub">H.O.T, 젝스키스, SES, 핑클, god...</span>
+        </div>
+      </button>
+      <button class="era-btn" id="era-1020" onclick="selectEra('노래(10-20년대)')">
+        <span>🎧</span>
+        <div>
+          <div>10-20년대</div>
+          <span class="era-sub">BTS, 블랙핑크, 뉴진스, 아이유...</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
