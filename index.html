@@ -883,20 +883,32 @@
   function getWordQueue(cat) {
     const key = 'queue_' + cat;
     if (!state.wordQueue[key] || state.wordQueue[key].length === 0) {
-      // 전체 셔플해서 리셋
+      const flippedKey = 'flipped_' + cat;
+      // 이전 라운드가 뒤집기였는지 확인 → 번갈아가며 전환
+      const wasFlipped = state.wordQueue[flippedKey] || false;
+      const shouldFlip = !wasFlipped;
+      state.wordQueue[flippedKey] = shouldFlip;
+
       const list = [...state.words[cat]];
+      // 셔플
       for (let i = list.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [list[i], list[j]] = [list[j], list[i]];
       }
-      state.wordQueue[key] = list;
+      // 뒤집기 라운드면 word↔similar 교체
+      state.wordQueue[key] = shouldFlip
+        ? list.map(item => ({ word: item.similar[0], similar: [item.word] }))
+        : list;
+
+      if (shouldFlip) console.log(`[${cat}] 뒤집기 라운드 시작!`);
+      else console.log(`[${cat}] 일반 라운드 시작!`);
     }
     return state.wordQueue[key];
   }
 
   function pickWord(cat) {
     const queue = getWordQueue(cat);
-    return queue.shift(); // 앞에서 하나 꺼냄
+    return queue.shift();
   }
 
   // ── 게임 시작 ──
