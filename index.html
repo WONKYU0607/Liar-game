@@ -710,9 +710,12 @@
       </div>
     </div>
 
-    <div class="bottom-btn">
+    <div class="bottom-btn gap-12">
       <button class="btn btn-primary" id="role-next-btn" onclick="nextPlayer()" style="display:none;">
         다음 플레이어 →
+      </button>
+      <button class="btn btn-ghost" id="role-reroll-btn" onclick="rerollWord()" style="display:none;">
+        🔄 다른 단어로 바꾸기
       </button>
     </div>
   </div>
@@ -786,7 +789,9 @@
     timerRemain: 180,
     timerRunning: false,
     votedFor: null,
-    words: {}
+    words: {},
+    wordQueue: [],
+    currentWordObj: null
   };
 
   const CATEGORIES = ['동물','직업','음식','국가','랜드마크','축구선수','스포츠스타','전자제품','브랜드','유명도시','연예인','노래'];
@@ -874,6 +879,26 @@
     document.getElementById('timer-desc').textContent = `${state.timerSecs}초`;
   }
 
+  // ── 단어 큐 관리 ──
+  function getWordQueue(cat) {
+    const key = 'queue_' + cat;
+    if (!state.wordQueue[key] || state.wordQueue[key].length === 0) {
+      // 전체 셔플해서 리셋
+      const list = [...state.words[cat]];
+      for (let i = list.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [list[i], list[j]] = [list[j], list[i]];
+      }
+      state.wordQueue[key] = list;
+    }
+    return state.wordQueue[key];
+  }
+
+  function pickWord(cat) {
+    const queue = getWordQueue(cat);
+    return queue.shift(); // 앞에서 하나 꺼냄
+  }
+
   // ── 게임 시작 ──
   function startGame() {
     if (!Object.keys(state.words).length) {
@@ -881,35 +906,42 @@
       return;
     }
 
-    // 카테고리에서 랜덤 단어 선택
     const availableCats = state.categories.filter(c => state.words[c]);
     if (!availableCats.length) { alert('카테고리를 선택하세요.'); return; }
 
     const cat = availableCats[Math.floor(Math.random() * availableCats.length)];
-    const wordList = state.words[cat];
-    const wordObj = wordList[Math.floor(Math.random() * wordList.length)];
+    state.currentCat = cat;
+    state.currentWordObj = pickWord(cat);
 
+    assignRoles(state.currentWordObj);
+    state.currentPlayer = 0;
+    state.revealed = false;
+    renderRoleScreen();
+    goTo('role');
+  }
+
+  function assignRoles(wordObj) {
     const citizenWord = wordObj.word;
-    let liarWord = '???';
-    if (state.mode === 'spy' && wordObj.similar && wordObj.similar.length) {
+    let liarWord = citizenWord;
+    if (state.mode === 'spy' && wordObj.similar?.length) {
       liarWord = wordObj.similar[Math.floor(Math.random() * wordObj.similar.length)];
     }
-
-    // 역할 배정
     const playerNums = Array.from({length: state.players}, (_, i) => i + 1);
-    const shuffled = [...playerNums].sort(() => Math.random() - 0.5);
-    const liarPlayers = shuffled.slice(0, state.liars);
-
+    const liarPlayers = [...playerNums].sort(() => Math.random() - 0.5).slice(0, state.liars);
     state.roles = playerNums.map(n => ({
       player: n,
       isLiar: liarPlayers.includes(n),
       word: liarPlayers.includes(n) ? liarWord : citizenWord
     }));
+  }
 
-    state.currentPlayer = 0;
+  function rerollWord() {
+    // 교체된 단어도 사용된 것으로 처리 (큐에서 이미 빠짐)
+    state.currentWordObj = pickWord(state.currentCat);
+    assignRoles(state.currentWordObj);
+    // 1번 플레이어 다시 보여주기
     state.revealed = false;
     renderRoleScreen();
-    goTo('role');
   }
 
   // ── 역할 확인 ──
@@ -917,6 +949,7 @@
     const idx = state.currentPlayer;
     document.getElementById('role-player-num').textContent = idx + 1;
     document.getElementById('role-next-btn').style.display = 'none';
+    document.getElementById('role-reroll-btn').style.display = 'none';
     state.revealed = false;
 
     const card = document.getElementById('role-card');
@@ -968,6 +1001,14 @@
     const btn = document.getElementById('role-next-btn');
     btn.style.display = 'block';
     btn.textContent = isLast ? '토론 시작 🗣️' : `다음 플레이어 →`;
+
+    // 1번 플레이어(시민)일 때만 교체 버튼 표시
+    const rerollBtn = document.getElementById('role-reroll-btn');
+    if (state.currentPlayer === 0 && !role.isLiar) {
+      rerollBtn.style.display = 'block';
+    } else {
+      rerollBtn.style.display = 'none';
+    }
   }
 
   function nextPlayer() {
