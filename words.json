@@ -15,7 +15,7 @@
     {"word": "두더지", "similar": ["고슴도치"]},
     {"word": "카멜레온", "similar": ["도마뱀"]},
     {"word": "치타", "similar": ["표범"]},
-    {"word": "하이에나", "similar": ["들개"]},
+    {"word": "하이에나", "similar": ["개"]},
     {"word": "수달", "similar": ["족제비"]},
     {"word": "판다", "similar": ["곰"]},
     {"word": "미어캣", "similar": ["사슴"]},
@@ -25,7 +25,6 @@
     {"word": "스컹크", "similar": ["너구리"]},
     {"word": "북극곰", "similar": ["바다표범"]},
     {"word": "독사", "similar": ["코브라"]},
-    {"word": "두루미", "similar": ["황새"]},
     {"word": "문어", "similar": ["오징어"]},
     {"word": "코뿔소", "similar": ["버팔로"]},
     {"word": "매", "similar": ["올빼미"]}
