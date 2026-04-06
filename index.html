@@ -936,10 +936,17 @@
   }
 
   function rerollWord() {
-    // 교체된 단어도 사용된 것으로 처리 (큐에서 이미 빠짐)
     state.currentWordObj = pickWord(state.currentCat);
-    assignRoles(state.currentWordObj);
-    // 1번 플레이어 다시 보여주기
+    const citizenWord = state.currentWordObj.word;
+    let liarWord = citizenWord;
+    if (state.mode === 'spy' && state.currentWordObj.similar?.length) {
+      liarWord = state.currentWordObj.similar[Math.floor(Math.random() * state.currentWordObj.similar.length)];
+    }
+    // 라이어 배정은 그대로, 단어만 교체
+    state.roles = state.roles.map(r => ({
+      ...r,
+      word: r.isLiar ? liarWord : citizenWord
+    }));
     state.revealed = false;
     renderRoleScreen();
   }
@@ -1002,13 +1009,9 @@
     btn.style.display = 'block';
     btn.textContent = isLast ? '토론 시작 🗣️' : `다음 플레이어 →`;
 
-    // 1번 플레이어(시민)일 때만 교체 버튼 표시
+    // 1번 플레이어일 때 항상 교체 버튼 표시
     const rerollBtn = document.getElementById('role-reroll-btn');
-    if (state.currentPlayer === 0 && !role.isLiar) {
-      rerollBtn.style.display = 'block';
-    } else {
-      rerollBtn.style.display = 'none';
-    }
+    rerollBtn.style.display = state.currentPlayer === 0 ? 'block' : 'none';
   }
 
   function nextPlayer() {
