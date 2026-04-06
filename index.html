@@ -795,7 +795,7 @@
   };
 
   const CATEGORIES = ['동물','직업','음식','국가','랜드마크','축구선수','스포츠스타','전자제품','브랜드','유명도시','연예인','노래'];
-  const SONG_CATS = ['노래(70-80년대)', '노래(90-00년대)', '노래(10-20년대)'];
+  const SONG_CATS = ['노래(70-80년대)', '노래(00-20년대)'];
 
   // ── 단어 DB 로드 ──
   async function loadWords() {
@@ -1151,9 +1151,8 @@
 
   function openSongOverlay() {
     document.getElementById('song-overlay').classList.add('active');
-    // 현재 선택된 연대 표시
-    const eras = ['노래(70-80년대)', '노래(90-00년대)', '노래(10-20년대)'];
-    const ids = ['era-7080', 'era-9000', 'era-1020'];
+    const eras = ['노래(70-80년대)', '노래(00-20년대)'];
+    const ids = ['era-7080', 'era-0020'];
     eras.forEach((era, i) => {
       document.getElementById(ids[i]).classList.toggle('selected', state.categories.includes(era));
     });
@@ -1181,21 +1180,14 @@
         <span>📻</span>
         <div>
           <div>70-80년대</div>
-          <span class="era-sub">조용필, 이문세, 나미, 이선희...</span>
+          <span class="era-sub">조용필, 이문세, 김광석, 나미...</span>
         </div>
       </button>
-      <button class="era-btn" id="era-9000" onclick="selectEra('노래(90-00년대)')">
-        <span>🎤</span>
-        <div>
-          <div>90-00년대</div>
-          <span class="era-sub">H.O.T, 젝스키스, SES, 핑클, god...</span>
-        </div>
-      </button>
-      <button class="era-btn" id="era-1020" onclick="selectEra('노래(10-20년대)')">
+      <button class="era-btn" id="era-0020" onclick="selectEra('노래(00-20년대)')">
         <span>🎧</span>
         <div>
-          <div>10-20년대</div>
-          <span class="era-sub">BTS, 블랙핑크, 뉴진스, 아이유...</span>
+          <div>00-20년대</div>
+          <span class="era-sub">빅뱅, 2NE1, 소녀시대, BTS, 블랙핑크...</span>
         </div>
       </button>
     </div>
