@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>라이어게임</title>
-  <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <title>감다살 라이어게임</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0d0d1a;
-      --surface: #12122a;
-      --card: #1a1a35;
-      --border: #2e2e55;
-      --accent: #7b2fff;
-      --accent2: #e040fb;
-      --text: #ffffff;
-      --muted: #9090bb;
-      --success: #34d399;
+      --bg: #fdf6ec;
+      --surface: #fef9f2;
+      --card: #ffffff;
+      --border: #e8d5b0;
+      --accent: #c07a3a;
+      --accent2: #e8953a;
+      --text: #3a2410;
+      --muted: #9a7a5a;
+      --success: #5a8a3a;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -57,14 +57,12 @@
     }
 
     .logo {
-      font-family: 'Black Han Sans', sans-serif;
-      font-size: 36px;
-      letter-spacing: 2px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 20px;
+      line-height: 1.6;
       text-align: center;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--accent);
+      text-shadow: 3px 3px 0px var(--border);
       margin-bottom: 4px;
     }
 
@@ -91,7 +89,7 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: var(--accent);
       color: white;
     }
     .btn-primary:active { transform: scale(0.97); }
@@ -154,7 +152,7 @@
     .mode-btn:active { transform: scale(0.98); }
     .mode-btn.selected {
       border-color: var(--accent);
-      background: rgba(123, 47, 255, 0.15);
+      background: rgba(192, 122, 58, 0.12);
     }
 
     .mode-icon {
@@ -232,7 +230,7 @@
     }
     .cat-btn.selected {
       border-color: var(--accent);
-      background: rgba(123, 47, 255, 0.15);
+      background: rgba(192, 122, 58, 0.12);
       color: var(--text);
     }
     .cat-btn:active { transform: scale(0.96); }
@@ -290,7 +288,7 @@
       transition: all 0.2s;
     }
     .era-btn:active { transform: scale(0.98); }
-    .era-btn.selected { border-color: var(--accent); background: rgba(123, 47, 255, 0.15); }
+    .era-btn.selected { border-color: var(--accent); background: rgba(192, 122, 58, 0.12); }
     .era-sub { font-size: 12px; color: var(--muted); font-weight: 400; display: block; margin-top: 2px; }
 
     /* ── 역할 확인 화면 ── */
@@ -304,13 +302,11 @@
     }
 
     .player-number {
-      font-family: 'Black Han Sans', sans-serif;
-      font-size: 64px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 48px;
       line-height: 1;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--accent);
+      text-shadow: 3px 3px 0px var(--border);
     }
 
     .player-label {
@@ -334,13 +330,13 @@
     }
 
     .role-card.citizen {
-      background: linear-gradient(135deg, #1a2a3a, #1c2d40);
-      border: 1px solid #2a4a6a;
+      background: linear-gradient(135deg, #fff8ee, #fdf0dc);
+      border: 2px solid #c07a3a;
     }
 
     .role-card.liar {
-      background: linear-gradient(135deg, #1a0a35, #2a1040);
-      border: 1px solid #7b2fff;
+      background: linear-gradient(135deg, #fff0e8, #ffe0cc);
+      border: 2px solid #c04a00;
     }
 
     .role-card.hidden {
@@ -352,6 +348,7 @@
     .role-emoji {
       font-size: 56px;
       margin-bottom: 16px;
+      line-height: 1;
     }
 
     .role-title {
@@ -369,7 +366,7 @@
 
     .role-word.liar-text {
       font-size: 18px;
-      color: var(--accent);
+      color: #c04a00;
       line-height: 1.6;
     }
 
@@ -460,7 +457,7 @@
 
     .vote-item.selected {
       border-color: var(--accent);
-      background: rgba(123, 47, 255, 0.1);
+      background: rgba(192, 122, 58, 0.1);
     }
 
     .vote-item:active { transform: scale(0.98); }
@@ -547,8 +544,8 @@
     }
 
     .reveal-item.is-liar {
-      border-color: var(--accent);
-      background: rgba(123, 47, 255, 0.08);
+      border-color: #c04a00;
+      background: rgba(192, 74, 0, 0.07);
     }
 
     .reveal-left {
@@ -566,12 +563,12 @@
     }
 
     .badge-liar {
-      background: rgba(123, 47, 255, 0.2);
-      color: #c084fc;
+      background: rgba(192, 74, 0, 0.15);
+      color: #c04a00;
     }
 
     .badge-citizen {
-      background: rgba(46, 196, 182, 0.15);
+      background: rgba(90, 138, 58, 0.15);
       color: var(--success);
     }
 
@@ -622,7 +619,7 @@
   <!-- ── 홈 ── -->
   <div id="screen-home" class="screen active">
     <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
-      <div class="logo">LIAR GAME</div>
+      <div class="logo">감다살<br>라이어게임</div>
       <div class="subtitle">누가 거짓말을 하고 있을까?</div>
 
       <div class="section-label">모드 선택</div>
@@ -994,7 +991,7 @@
       if (state.mode === 'spy') {
         card.innerHTML = `
           <div class="role-emoji">👥</div>
-          <div class="role-title" style="color:#34d399;">시민</div>
+          <div class="role-title" style="color:#5a8a3a;">시민</div>
           <div class="role-word">${role.word}</div>
           <div class="tap-hint" style="margin-top:16px;">제시어를 기억하세요<br>라이어를 찾아내세요</div>
         `;
@@ -1002,7 +999,7 @@
       } else {
         card.innerHTML = `
           <div class="role-emoji">🎭</div>
-          <div class="role-title" style="color:#c084fc;">라이어</div>
+          <div class="role-title" style="color:#c04a00;">라이어</div>
           <div class="role-word liar-text">당신은 라이어입니다<br>제시어를 모릅니다<br>시민처럼 행동하세요</div>
         `;
       }
@@ -1010,7 +1007,7 @@
       card.className = 'role-card citizen';
       card.innerHTML = `
         <div class="role-emoji">👥</div>
-        <div class="role-title" style="color:#34d399;">시민</div>
+        <div class="role-title" style="color:#5a8a3a;">시민</div>
         <div class="role-word">${role.word}</div>
         <div class="tap-hint" style="margin-top:16px;">제시어를 기억하세요<br>라이어를 찾아내세요</div>
       `;
@@ -1065,11 +1062,11 @@
 
     // 남은 시간에 따라 색 변경
     if (state.timerRemain <= 30) {
-      circ.style.stroke = '#e040fb';
+      circ.style.stroke = '#c04a00';
     } else if (state.timerRemain <= 60) {
-      circ.style.stroke = '#a855f7';
+      circ.style.stroke = '#e8953a';
     } else {
-      circ.style.stroke = '#7b2fff';
+      circ.style.stroke = '#c07a3a';
     }
   }
 
@@ -1121,7 +1118,7 @@
     const votedRole = state.roles[state.votedFor - 1];
     const liarsCaught = votedRole.isLiar;
 
-    document.getElementById('result-badge').textContent = liarsCaught ? '🎉' : '😈';
+    document.getElementById('result-badge').innerHTML = liarsCaught ? `<svg width="72" height="72" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;width:72px;height:72px;"><rect x="6" y="1" width="6" height="2" fill="#f5c842"/><rect x="4" y="3" width="10" height="2" fill="#f5c842"/><rect x="3" y="5" width="12" height="2" fill="#f5c842"/><rect x="4" y="7" width="10" height="2" fill="#e8a020"/><rect x="5" y="9" width="8" height="2" fill="#e8a020"/><rect x="6" y="11" width="6" height="4" fill="#c07a3a"/><rect x="5" y="14" width="8" height="1" fill="#a05a20"/></svg>` : `<svg width="72" height="72" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated;width:72px;height:72px;"><rect x="5" y="2" width="8" height="6" fill="#f5c842"/><rect x="4" y="3" width="1" height="4" fill="#f5c842"/><rect x="13" y="3" width="1" height="4" fill="#f5c842"/><rect x="6" y="4" width="2" height="2" fill="#3a2410"/><rect x="10" y="4" width="2" height="2" fill="#3a2410"/><rect x="6" y="7" width="6" height="1" fill="#3a2410"/><rect x="3" y="1" width="12" height="2" fill="#8b1a00"/><rect x="5" y="8" width="8" height="5" fill="#8b1a00"/><rect x="5" y="13" width="3" height="2" fill="#3a2410"/><rect x="10" y="13" width="3" height="2" fill="#3a2410"/></svg>`;
     document.getElementById('result-title').textContent = liarsCaught ? '시민 승리!' : '라이어 승리!';
     document.getElementById('result-desc').textContent = liarsCaught
       ? `${state.votedFor}번 플레이어가 라이어였습니다!\n시민들이 라이어를 찾아냈어요.`
