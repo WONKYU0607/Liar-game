@@ -59,15 +59,15 @@
 
     .logo {
       font-family: 'Jua', sans-serif;
-      font-size: 36px;
-      font-weight: 400;
+      font-size: 40px;
+      font-weight: 900;
       letter-spacing: 4px;
       text-align: center;
       margin-bottom: 4px;
       line-height: 1.4;
     }
-    .logo .r { color: #e03030; -webkit-text-stroke: 2px #a00000; }
-    .logo .b { color: #2060e0; -webkit-text-stroke: 2px #003aaa; }
+    .logo .r { color: #e03030; -webkit-text-stroke: 3px #a00000; font-weight: 900; }
+    .logo .b { color: #2060e0; -webkit-text-stroke: 3px #003aaa; font-weight: 900; }
 
     .subtitle {
       text-align: center;
@@ -854,7 +854,7 @@
     currentWordObj: null
   };
 
-  const CATEGORIES = ['동물','직업','음식','국가','랜드마크','축구선수','스포츠스타','생활용품','브랜드','유명도시','연예인','노래'];
+  const CATEGORIES = ['동물','직업','음식','국가','랜드마크','축구선수','스포츠스타','스포츠종목','역사인물','생활용품','브랜드','유명도시','연예인','노래'];
   const SONG_CATS = ['노래(70-80년대)', '노래(00-20년대)'];
 
   // ── 단어 DB 로드 ──
@@ -905,7 +905,7 @@
     const map = {
       '동물':'🐾', '직업':'💼', '음식':'🍜', '국가':'🌍', '랜드마크':'🗺️',
       '축구선수':'⚽', '스포츠스타':'🏆', '생활용품':'🧴', '브랜드':'👜',
-      '유명도시':'🏙️', '연예인':'🎤', '노래(2000년대)':'🎵', '노래(90년대)':'📻', '노래(최신)':'🎧'
+      '유명도시':'🏙️', '연예인':'🎤', '스포츠종목':'🏅', '역사인물':'👑', '노래(2000년대)':'🎵', '노래(90년대)':'📻', '노래(최신)':'🎧'
     };
     return map[cat] || '📌';
   }
