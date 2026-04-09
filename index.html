@@ -6,6 +6,12 @@
   <title>감다살 라이어게임</title>
   <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet" />
   <style>
+    @font-face {
+      font-family: 'DungGeunMo';
+      src: url('https://cdn.jsdelivr.net/gh/dacapo1142/resource@main/fonts/DungGeunMo.woff') format('woff');
+    }
+  </style>
+  <style>
     :root {
       --bg: #fdf6ec;
       --surface: #fef9f2;
@@ -57,17 +63,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .logo {
-      font-family: 'Jua', sans-serif;
-      font-size: 40px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      text-align: center;
-      margin-bottom: 4px;
-      line-height: 1.4;
-    }
-    .logo .r { color: #e03030; -webkit-text-stroke: 3px #a00000; font-weight: 900; }
-    .logo .b { color: #2060e0; -webkit-text-stroke: 3px #003aaa; font-weight: 900; }
+    .logo { text-align: center; margin-bottom: 4px; }
 
     .subtitle {
       text-align: center;
@@ -626,7 +622,106 @@
   <!-- ── 홈 ── -->
   <div id="screen-home" class="screen active">
     <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
-      <div class="logo"><span class="r">감</span><span class="b">다</span><span class="r">살</span><br><span class="b">라</span><span class="r">이</span><span class="b">어</span><span class="r">게</span><span class="b">임</span></div>
+      <div class="logo" style="padding:0;line-height:1"><svg width="460" height="270" viewBox="0 0 460 270" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:460px;display:block;margin:0 auto">
+  <defs><style>@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');</style></defs>
+  <g transform="translate(2, 75) scale(0.85)">
+    <ellipse cx="36" cy="155" rx="24" ry="6" fill="#00000015"/>
+    <rect x="14" y="92" width="44" height="42" rx="16" fill="#e03030"/>
+    <rect x="17" y="126" width="14" height="20" rx="7" fill="#b02020"/>
+    <rect x="37" y="126" width="14" height="20" rx="7" fill="#b02020"/>
+    <ellipse cx="24" cy="146" rx="13" ry="7" fill="#222"/>
+    <ellipse cx="44" cy="146" rx="13" ry="7" fill="#222"/>
+    <rect x="0" y="95" width="16" height="12" rx="6" fill="#e03030"/>
+    <circle cx="3" cy="111" r="9" fill="#f5c8a0"/>
+    <rect x="56" y="95" width="16" height="12" rx="6" fill="#e03030"/>
+    <circle cx="69" cy="111" r="9" fill="#f5c8a0"/>
+    <circle cx="36" cy="68" r="30" fill="#f5c8a0"/>
+    <ellipse cx="18" cy="75" rx="8" ry="6" fill="#f09090" opacity="0.6"/>
+    <ellipse cx="54" cy="75" rx="8" ry="6" fill="#f09090" opacity="0.6"/>
+    <path d="M18 54 L30 51" stroke="#4a2000" stroke-width="3" stroke-linecap="round"/>
+    <path d="M42 51 L54 54" stroke="#4a2000" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="24" cy="64" rx="6" ry="7" fill="white"/>
+    <ellipse cx="48" cy="64" rx="6" ry="7" fill="white"/>
+    <circle cx="25" cy="66" r="4" fill="#cc0000"/>
+    <circle cx="49" cy="66" r="4" fill="#cc0000"/>
+    <circle cx="26" cy="64" r="1.5" fill="white"/>
+    <circle cx="50" cy="64" r="1.5" fill="white"/>
+    <path d="M28 78 Q36 86 44 78" fill="none" stroke="#4a2000" stroke-width="2.5" stroke-linecap="round"/>
+    <ellipse cx="36" cy="41" rx="30" ry="9" fill="#b01010"/>
+    <rect x="10" y="36" width="52" height="17" rx="10" fill="#cc1a1a"/>
+    <rect x="18" y="33" width="36" height="14" rx="7" fill="#e03030"/>
+    <rect x="28" y="35" width="16" height="9" rx="2" fill="#ffcc00"/>
+    <text x="36" y="43" text-anchor="middle" font-size="8" fill="#cc2000" font-weight="900">!</text>
+  </g>
+  <g transform="translate(90,95) rotate(-8)">
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#6a0000">감</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#cc0000" dx="-4" dy="-4">감</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#ff3333" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">감</text>
+  </g>
+  <g transform="translate(162,88) rotate(6)">
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="57" font-weight="900" fill="#001880">다</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="57" font-weight="900" fill="#0038cc" dx="-4" dy="-4">다</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="57" font-weight="900" fill="#2266ff" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">다</text>
+  </g>
+  <g transform="translate(224,92) rotate(-4)">
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="63" font-weight="900" fill="#6a0000">살</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="63" font-weight="900" fill="#cc0000" dx="-4" dy="-4">살</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="63" font-weight="900" fill="#ff3333" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">살</text>
+  </g>
+  <g transform="translate(86,188) rotate(-6)">
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#001880">라</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#0038cc" dx="-4" dy="-4">라</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#2266ff" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">라</text>
+  </g>
+  <g transform="translate(152,185) rotate(5)">
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="58" font-weight="900" fill="#6a0000">이</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="58" font-weight="900" fill="#cc0000" dx="-4" dy="-4">이</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="58" font-weight="900" fill="#ff3333" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">이</text>
+  </g>
+  <g transform="translate(208,180) rotate(-3)">
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="52" font-weight="900" fill="#001880">어</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="52" font-weight="900" fill="#0038cc" dx="-4" dy="-4">어</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="52" font-weight="900" fill="#2266ff" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">어</text>
+  </g>
+  <g transform="translate(258,186) rotate(5)">
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="56" font-weight="900" fill="#6a0000">게</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="56" font-weight="900" fill="#cc0000" dx="-4" dy="-4">게</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="56" font-weight="900" fill="#ff3333" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">게</text>
+  </g>
+  <g transform="translate(314,180) rotate(-5)">
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="51" font-weight="900" fill="#001880">임</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="51" font-weight="900" fill="#0038cc" dx="-4" dy="-4">임</text>
+    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="51" font-weight="900" fill="#2266ff" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">임</text>
+  </g>
+  <g transform="translate(378, 75) scale(0.85)">
+    <ellipse cx="36" cy="155" rx="24" ry="6" fill="#00000015"/>
+    <path d="M14 106 Q14 134 28 134 L36 134 L36 92 L14 92 Z" fill="#e03030"/>
+    <path d="M36 92 L36 134 L44 134 Q58 134 58 106 L58 92 Z" fill="#2060e0"/>
+    <rect x="17" y="126" width="14" height="20" rx="7" fill="#4a2000"/>
+    <rect x="37" y="126" width="14" height="20" rx="7" fill="#4a2000"/>
+    <ellipse cx="24" cy="146" rx="13" ry="7" fill="#222"/>
+    <ellipse cx="44" cy="146" rx="13" ry="7" fill="#222"/>
+    <rect x="0" y="95" width="16" height="12" rx="6" fill="#c02020"/>
+    <circle cx="3" cy="111" r="9" fill="#f5c8a0"/>
+    <rect x="56" y="95" width="16" height="12" rx="6" fill="#1050c0"/>
+    <circle cx="69" cy="111" r="9" fill="#f5c8a0"/>
+    <circle cx="36" cy="68" r="30" fill="#f5c8a0"/>
+    <ellipse cx="18" cy="75" rx="8" ry="6" fill="#f09090" opacity="0.6"/>
+    <ellipse cx="54" cy="75" rx="8" ry="6" fill="#f09090" opacity="0.6"/>
+    <ellipse cx="24" cy="64" rx="7" ry="8" fill="white"/>
+    <ellipse cx="48" cy="64" rx="7" ry="8" fill="white"/>
+    <circle cx="24" cy="66" r="4.5" fill="#1a3aaa"/>
+    <circle cx="48" cy="66" r="4.5" fill="#1a3aaa"/>
+    <circle cx="25" cy="64" r="1.8" fill="white"/>
+    <circle cx="49" cy="64" r="1.8" fill="white"/>
+    <path d="M26 78 Q36 90 46 78" fill="none" stroke="#4a2000" stroke-width="2.5" stroke-linecap="round"/>
+    <ellipse cx="36" cy="43" rx="32" ry="9" fill="#1a6e1a"/>
+    <rect x="8" y="37" width="56" height="18" rx="10" fill="#228b22"/>
+    <rect x="16" y="28" width="40" height="17" rx="8" fill="#2db52d"/>
+    <rect x="8" y="45" width="56" height="5" rx="2" fill="#186018"/>
+    <circle cx="36" cy="30" r="4" fill="#186018"/>
+  </g>
+</svg></div>
       <div class="subtitle" style="font-size:12px; color:#9a7a5a; letter-spacing:2px;">누가 거짓말을 하고 있을까?</div>
 
       <div class="section-label">모드 선택</div>
@@ -1221,9 +1316,7 @@
   <circle cx="33" cy="23" r="1.2" fill="white"/>
   <circle cx="49" cy="23" r="1.2" fill="white"/>
   <path d="M32 35 Q40 44 48 35" fill="none" stroke="#4a2000" stroke-width="2.5" stroke-linecap="round"/>
-  <ellipse cx="40" cy="7" rx="21" ry="7" fill="#5a3010"/>
-  <ellipse cx="20" cy="17" rx="7" ry="9" fill="#5a3010"/>
-  <ellipse cx="60" cy="17" rx="7" ry="9" fill="#5a3010"/>
+  <ellipse cx="40" cy="7" rx="24" ry="7" fill="#1a6e1a"/><rect x="16" y="2" width="48" height="13" rx="7" fill="#228b22"/><rect x="22" y="-2" width="36" height="12" rx="6" fill="#2db52d"/><rect x="16" y="9" width="48" height="4" rx="2" fill="#186018"/>
   <text x="8" y="10" font-size="16">⭐</text>
   <text x="56" y="10" font-size="16">⭐</text>
 </svg>` : `<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style="width:80px;height:80px;display:inline-block">
