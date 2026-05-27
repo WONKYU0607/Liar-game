@@ -616,20 +616,17 @@
     .text-muted { color: var(--muted); font-size: 13px; }
   </style>
   <style>
-    /* ── 인트로 (아케이드 줌인) ── */
+    /* ── 인트로 (아케이드 줌인 → 글래스 화면에 게임 UI) ── */
     #intro-overlay {
       position: fixed;
       inset: 0;
-      z-index: 99999;
+      z-index: 9000;
       background: #74caed;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      opacity: 1;
-      transition: opacity 0.35s ease;
     }
-    #intro-overlay.fade { opacity: 0; }
     #intro-img {
       max-width: 100%;
       max-height: 100%;
@@ -637,30 +634,30 @@
       height: auto;
       display: block;
       transform: scale(1);
-      transform-origin: 51.2% 37.8%;
-      transition: transform 1.1s cubic-bezier(0.5, 0, 0.75, 0.2);
+      transform-origin: 49.95% 38.15%;
+      transition: transform 1.2s cubic-bezier(0.5, 0, 0.6, 0.25);
       will-change: transform;
     }
-    #intro-overlay.zoom #intro-img { transform: scale(7.5); }
-    #intro-skip {
-      position: absolute;
-      bottom: 26px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-family: 'Noto Sans KR', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.9);
-      letter-spacing: 2px;
-      pointer-events: none;
-      animation: introBlink 1.2s ease-in-out infinite;
+    /* 게임 UI를 글래스 영역에 고정 (위치/크기는 JS가 지정) */
+    #root.in-glass {
+      position: fixed;
+      min-height: 0;
+      max-width: none;
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      z-index: 9100;
+      background: var(--bg);
+      border-radius: 10px;
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.12);
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
-    #intro-overlay.zoom #intro-skip { opacity: 0; transition: opacity 0.2s; }
-    @keyframes introBlink {
-      0%,100% { opacity: 0.4; }
-      50% { opacity: 0.95; }
-    }
+    #root.in-glass.show { opacity: 1; }
+    #root.in-glass .screen { padding: 16px 14px; }
+    /* 게임 모달은 프레임/UI 위로 */
+    .song-overlay { z-index: 9300; }
   </style>
 </head>
 <body>
@@ -1471,25 +1468,92 @@
   </div>
 </div>
 <script>
-  // ── 인트로 줌인 (기존 로직 미간섭, 1회성 오버레이) ──
+  // ── 인트로: 아케이드 줌인 → 글래스 화면에 게임 UI 배치 (기존 로직 미간섭) ──
   (function () {
-    var ov = document.getElementById('intro-overlay');
-    if (!ov) return;
-    var done = false;
-    function finish() {
-      if (done) return;
-      done = true;
-      ov.classList.add('zoom');                 // 스크린 중심으로 확대
-      setTimeout(function () { ov.classList.add('fade'); }, 850);
-      setTimeout(function () {
-        if (ov && ov.parentNode) ov.parentNode.removeChild(ov);
-      }, 1250);
+    var ov   = document.getElementById('intro-overlay');
+    var img  = document.getElementById('intro-img');
+    var root = document.getElementById('root');
+    if (!ov || !img || !root) return;
+
+    // arcade.png 기준 글래스 내부 사각형 (natural px)
+    var IMG_W = 1024, IMG_H = 1042;
+    var GX0 = 395, GY0 = 295, GX1 = 628, GY1 = 500;
+    var FILL = 0.92;   // 글래스가 화면을 채우는 비율
+    var PAD  = 7;      // 글래스 안쪽 여백(px)
+
+    function layout() {
+      var VW = window.innerWidth;
+      var VH = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+      var fit = Math.min(VW / IMG_W, VH / IMG_H);
+      var IW = IMG_W * fit, IH = IMG_H * fit;
+      var ILx = (VW - IW) / 2, ILy = (VH - IH) / 2;
+      var OX = ((GX0 + GX1) / 2) / IMG_W, OY = ((GY0 + GY1) / 2) / IMG_H;
+      var Oxb = IW * OX, Oyb = IH * OY;
+      var gW = (GX1 - GX0) * fit, gH = (GY1 - GY0) * fit;
+      var S = Math.min(VW * FILL / gW, VH * FILL / gH);
+      function sx(nx) { var p = nx * fit; return ILx + Oxb + S * (p - Oxb); }
+      function sy(ny) { var p = ny * fit; return ILy + Oyb + S * (p - Oyb); }
+      return {
+        S: S,
+        left: sx(GX0), top: sy(GY0),
+        w: sx(GX1) - sx(GX0), h: sy(GY1) - sy(GY0),
+        origin: (OX * 100).toFixed(3) + '% ' + (OY * 100).toFixed(3) + '%'
+      };
     }
-    var auto = setTimeout(finish, 1000);         // 1초 후 자동 줌인
-    ov.addEventListener('click', function () {   // 탭하면 즉시 진행
-      clearTimeout(auto);
-      finish();
-    });
+
+    function placeRoot(L) {
+      root.style.left   = (L.left + PAD) + 'px';
+      root.style.top    = (L.top  + PAD) + 'px';
+      root.style.width  = (L.w - PAD * 2) + 'px';
+      root.style.height = (L.h - PAD * 2) + 'px';
+    }
+
+    var started = false, entered = false;
+
+    function enterGlass() {
+      if (entered) return; entered = true;
+      var L = layout();
+      root.classList.add('in-glass');
+      placeRoot(L);
+      void root.offsetWidth;
+      root.classList.add('show');
+    }
+
+    function finish() {
+      if (started) return; started = true;
+      var L = layout();
+      img.style.transformOrigin = L.origin;
+      void img.offsetWidth;
+      img.style.transform = 'scale(' + L.S + ')';
+      var safety = setTimeout(enterGlass, 1400);          // 폴백
+      img.addEventListener('transitionend', function te(e) {
+        if (e.propertyName !== 'transform') return;
+        img.removeEventListener('transitionend', te);
+        clearTimeout(safety);
+        enterGlass();
+      });
+    }
+
+    img.style.transformOrigin = layout().origin;          // 초기 origin
+    var auto = setTimeout(finish, 1000);                  // 1초 후 자동 줌인
+    ov.addEventListener('click', function () { clearTimeout(auto); finish(); });
+
+    // 회전/리사이즈 재계산
+    function reflow() {
+      var L = layout();
+      img.style.transformOrigin = L.origin;
+      if (started) {
+        var t = img.style.transition;
+        img.style.transition = 'none';
+        img.style.transform = 'scale(' + L.S + ')';
+        void img.offsetWidth;
+        img.style.transition = t;
+      }
+      if (entered) placeRoot(L);
+    }
+    window.addEventListener('resize', reflow);
+    window.addEventListener('orientationchange', function () { setTimeout(reflow, 300); });
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', reflow);
   })();
 </script>
 
