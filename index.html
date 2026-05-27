@@ -616,17 +616,20 @@
     .text-muted { color: var(--muted); font-size: 13px; }
   </style>
   <style>
-    /* ── 인트로 (아케이드 줌인 → 글래스 화면에 게임 UI) ── */
+    /* ── 인트로 (글래스 가득 줌인 → 페이드 → 게임 UI) ── */
     #intro-overlay {
       position: fixed;
       inset: 0;
       z-index: 9000;
-      background: #74caed;
+      background: #65c7eb;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      opacity: 1;
+      transition: opacity 0.45s ease;
     }
+    #intro-overlay.fade { opacity: 0; }
     #intro-img {
       max-width: 100%;
       max-height: 100%;
@@ -635,28 +638,27 @@
       display: block;
       transform: scale(1);
       transform-origin: 49.95% 38.15%;
-      transition: transform 1.2s cubic-bezier(0.5, 0, 0.6, 0.25);
+      transition: transform 1.1s cubic-bezier(0.45, 0, 0.55, 0.2);
       will-change: transform;
     }
-    /* 게임 UI를 글래스 영역에 고정 (위치/크기는 JS가 지정) */
-    #root.in-glass {
-      position: fixed;
-      min-height: 0;
-      max-width: none;
-      margin: 0;
-      padding: 0;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      z-index: 9100;
-      background: var(--bg);
-      border-radius: 10px;
-      box-shadow: 0 0 0 2px rgba(0,0,0,0.12);
-      opacity: 0;
-      transition: opacity 0.4s ease;
+    /* 게임 배경: 오락기 글래스 톤 */
+    body {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 38%),
+        linear-gradient(180deg, #7fd4f0 0%, #5cc0e8 100%);
+      background-attachment: fixed;
     }
-    #root.in-glass.show { opacity: 1; }
-    #root.in-glass .screen { padding: 16px 14px; }
-    /* 게임 모달은 프레임/UI 위로 */
+    /* 홈 제목 */
+    .game-title {
+      font-family: 'DungGeunMo', 'Noto Sans KR', sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #0a3a66;
+      text-align: center;
+      text-shadow: 0 2px 0 rgba(255,255,255,0.55);
+      margin-bottom: 4px;
+    }
     .song-overlay { z-index: 9300; }
   </style>
 </head>
@@ -672,106 +674,7 @@
   <!-- ── 홈 ── -->
   <div id="screen-home" class="screen active">
     <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
-      <div class="logo" style="padding:0;line-height:1"><svg width="460" height="270" viewBox="0 0 460 270" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:460px;display:block;margin:0 auto">
-  <defs><style>@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');</style></defs>
-  <g transform="translate(2, 75) scale(0.85)">
-    <ellipse cx="36" cy="155" rx="24" ry="6" fill="#00000015"/>
-    <rect x="14" y="92" width="44" height="42" rx="16" fill="#e03030"/>
-    <rect x="17" y="126" width="14" height="20" rx="7" fill="#b02020"/>
-    <rect x="37" y="126" width="14" height="20" rx="7" fill="#b02020"/>
-    <ellipse cx="24" cy="146" rx="13" ry="7" fill="#222"/>
-    <ellipse cx="44" cy="146" rx="13" ry="7" fill="#222"/>
-    <rect x="0" y="95" width="16" height="12" rx="6" fill="#e03030"/>
-    <circle cx="3" cy="111" r="9" fill="#f5c8a0"/>
-    <rect x="56" y="95" width="16" height="12" rx="6" fill="#e03030"/>
-    <circle cx="69" cy="111" r="9" fill="#f5c8a0"/>
-    <circle cx="36" cy="68" r="30" fill="#f5c8a0"/>
-    <ellipse cx="18" cy="75" rx="8" ry="6" fill="#f09090" opacity="0.6"/>
-    <ellipse cx="54" cy="75" rx="8" ry="6" fill="#f09090" opacity="0.6"/>
-    <path d="M18 54 L30 51" stroke="#4a2000" stroke-width="3" stroke-linecap="round"/>
-    <path d="M42 51 L54 54" stroke="#4a2000" stroke-width="3" stroke-linecap="round"/>
-    <ellipse cx="24" cy="64" rx="6" ry="7" fill="white"/>
-    <ellipse cx="48" cy="64" rx="6" ry="7" fill="white"/>
-    <circle cx="25" cy="66" r="4" fill="#cc0000"/>
-    <circle cx="49" cy="66" r="4" fill="#cc0000"/>
-    <circle cx="26" cy="64" r="1.5" fill="white"/>
-    <circle cx="50" cy="64" r="1.5" fill="white"/>
-    <path d="M28 78 Q36 86 44 78" fill="none" stroke="#4a2000" stroke-width="2.5" stroke-linecap="round"/>
-    <ellipse cx="36" cy="41" rx="30" ry="9" fill="#b01010"/>
-    <rect x="10" y="36" width="52" height="17" rx="10" fill="#cc1a1a"/>
-    <rect x="18" y="33" width="36" height="14" rx="7" fill="#e03030"/>
-    <rect x="28" y="35" width="16" height="9" rx="2" fill="#ffcc00"/>
-    <text x="36" y="43" text-anchor="middle" font-size="8" fill="#cc2000" font-weight="900">!</text>
-  </g>
-  <g transform="translate(90,95) rotate(-8)">
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#6a0000">감</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#cc0000" dx="-4" dy="-4">감</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#ff3333" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">감</text>
-  </g>
-  <g transform="translate(162,88) rotate(6)">
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="57" font-weight="900" fill="#001880">다</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="57" font-weight="900" fill="#0038cc" dx="-4" dy="-4">다</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="57" font-weight="900" fill="#2266ff" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">다</text>
-  </g>
-  <g transform="translate(224,92) rotate(-4)">
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="63" font-weight="900" fill="#6a0000">살</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="63" font-weight="900" fill="#cc0000" dx="-4" dy="-4">살</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="63" font-weight="900" fill="#ff3333" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">살</text>
-  </g>
-  <g transform="translate(86,188) rotate(-6)">
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#001880">라</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#0038cc" dx="-4" dy="-4">라</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="70" font-weight="900" fill="#2266ff" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">라</text>
-  </g>
-  <g transform="translate(152,185) rotate(5)">
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="58" font-weight="900" fill="#6a0000">이</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="58" font-weight="900" fill="#cc0000" dx="-4" dy="-4">이</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="58" font-weight="900" fill="#ff3333" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">이</text>
-  </g>
-  <g transform="translate(208,180) rotate(-3)">
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="52" font-weight="900" fill="#001880">어</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="52" font-weight="900" fill="#0038cc" dx="-4" dy="-4">어</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="52" font-weight="900" fill="#2266ff" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">어</text>
-  </g>
-  <g transform="translate(258,186) rotate(5)">
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="56" font-weight="900" fill="#6a0000">게</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="56" font-weight="900" fill="#cc0000" dx="-4" dy="-4">게</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="56" font-weight="900" fill="#ff3333" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">게</text>
-  </g>
-  <g transform="translate(314,180) rotate(-5)">
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="51" font-weight="900" fill="#001880">임</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="51" font-weight="900" fill="#0038cc" dx="-4" dy="-4">임</text>
-    <text font-family="DungGeunMo,'Noto Sans KR',sans-serif" font-size="51" font-weight="900" fill="#2266ff" stroke="white" stroke-width="6" paint-order="stroke fill" dx="-7" dy="-7">임</text>
-  </g>
-  <g transform="translate(378, 75) scale(0.85)">
-    <ellipse cx="36" cy="155" rx="24" ry="6" fill="#00000015"/>
-    <path d="M14 106 Q14 134 28 134 L36 134 L36 92 L14 92 Z" fill="#e03030"/>
-    <path d="M36 92 L36 134 L44 134 Q58 134 58 106 L58 92 Z" fill="#2060e0"/>
-    <rect x="17" y="126" width="14" height="20" rx="7" fill="#4a2000"/>
-    <rect x="37" y="126" width="14" height="20" rx="7" fill="#4a2000"/>
-    <ellipse cx="24" cy="146" rx="13" ry="7" fill="#222"/>
-    <ellipse cx="44" cy="146" rx="13" ry="7" fill="#222"/>
-    <rect x="0" y="95" width="16" height="12" rx="6" fill="#c02020"/>
-    <circle cx="3" cy="111" r="9" fill="#f5c8a0"/>
-    <rect x="56" y="95" width="16" height="12" rx="6" fill="#1050c0"/>
-    <circle cx="69" cy="111" r="9" fill="#f5c8a0"/>
-    <circle cx="36" cy="68" r="30" fill="#f5c8a0"/>
-    <ellipse cx="18" cy="75" rx="8" ry="6" fill="#f09090" opacity="0.6"/>
-    <ellipse cx="54" cy="75" rx="8" ry="6" fill="#f09090" opacity="0.6"/>
-    <ellipse cx="24" cy="64" rx="7" ry="8" fill="white"/>
-    <ellipse cx="48" cy="64" rx="7" ry="8" fill="white"/>
-    <circle cx="24" cy="66" r="4.5" fill="#1a3aaa"/>
-    <circle cx="48" cy="66" r="4.5" fill="#1a3aaa"/>
-    <circle cx="25" cy="64" r="1.8" fill="white"/>
-    <circle cx="49" cy="64" r="1.8" fill="white"/>
-    <path d="M26 78 Q36 90 46 78" fill="none" stroke="#4a2000" stroke-width="2.5" stroke-linecap="round"/>
-    <ellipse cx="36" cy="43" rx="32" ry="9" fill="#1a6e1a"/>
-    <rect x="8" y="37" width="56" height="18" rx="10" fill="#228b22"/>
-    <rect x="16" y="28" width="40" height="17" rx="8" fill="#2db52d"/>
-    <rect x="8" y="45" width="56" height="5" rx="2" fill="#186018"/>
-    <circle cx="36" cy="30" r="4" fill="#186018"/>
-  </g>
-</svg></div>
+      <div class="game-title">라이어게임</div>
       <div class="subtitle" style="font-size:12px; color:#9a7a5a; letter-spacing:2px;">누가 거짓말을 하고 있을까?</div>
 
       <div class="section-label">모드 선택</div>
@@ -1468,20 +1371,18 @@
   </div>
 </div>
 <script>
-  // ── 인트로: 아케이드 줌인 → 글래스 화면에 게임 UI 배치 (기존 로직 미간섭) ──
+  // ── 인트로: 글래스가 화면을 가득 채울 때까지 줌인 → 페이드 → 게임 UI (기존 로직 미간섭) ──
   (function () {
-    var ov   = document.getElementById('intro-overlay');
-    var img  = document.getElementById('intro-img');
-    var root = document.getElementById('root');
-    if (!ov || !img || !root) return;
+    var ov  = document.getElementById('intro-overlay');
+    var img = document.getElementById('intro-img');
+    if (!ov || !img) return;
 
     // arcade.png 기준 글래스 내부 사각형 (natural px)
     var IMG_W = 1024, IMG_H = 1042;
     var GX0 = 395, GY0 = 295, GX1 = 628, GY1 = 500;
-    var FILL = 0.92;   // 글래스가 화면을 채우는 비율
-    var PAD  = 7;      // 글래스 안쪽 여백(px)
 
-    function layout() {
+    // 글래스가 뷰포트를 완전히 덮는 scale 계산 (cover)
+    function coverScale() {
       var VW = window.innerWidth;
       var VH = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
       var fit = Math.min(VW / IMG_W, VH / IMG_H);
@@ -1489,67 +1390,41 @@
       var ILx = (VW - IW) / 2, ILy = (VH - IH) / 2;
       var OX = ((GX0 + GX1) / 2) / IMG_W, OY = ((GY0 + GY1) / 2) / IMG_H;
       var Oxb = IW * OX, Oyb = IH * OY;
+      // 글래스 중심의 화면상 고정 위치
+      var cx = ILx + Oxb, cy = ILy + Oyb;
       var gW = (GX1 - GX0) * fit, gH = (GY1 - GY0) * fit;
-      var S = Math.min(VW * FILL / gW, VH * FILL / gH);
-      function sx(nx) { var p = nx * fit; return ILx + Oxb + S * (p - Oxb); }
-      function sy(ny) { var p = ny * fit; return ILy + Oyb + S * (p - Oyb); }
+      // 중심에서 각 가장자리까지 거리를 글래스 절반폭/높이로 덮어야 함
+      var needW = 2 * Math.max(cx, VW - cx) / gW;
+      var needH = 2 * Math.max(cy, VH - cy) / gH;
       return {
-        S: S,
-        left: sx(GX0), top: sy(GY0),
-        w: sx(GX1) - sx(GX0), h: sy(GY1) - sy(GY0),
+        S: Math.max(needW, needH) * 1.02,   // 살짝 여유
         origin: (OX * 100).toFixed(3) + '% ' + (OY * 100).toFixed(3) + '%'
       };
     }
 
-    function placeRoot(L) {
-      root.style.left   = (L.left + PAD) + 'px';
-      root.style.top    = (L.top  + PAD) + 'px';
-      root.style.width  = (L.w - PAD * 2) + 'px';
-      root.style.height = (L.h - PAD * 2) + 'px';
-    }
-
-    var started = false, entered = false;
-
-    function enterGlass() {
-      if (entered) return; entered = true;
-      var L = layout();
-      root.classList.add('in-glass');
-      placeRoot(L);
-      void root.offsetWidth;
-      root.classList.add('show');
-    }
+    var started = false;
 
     function finish() {
       if (started) return; started = true;
-      var L = layout();
+      var L = coverScale();
       img.style.transformOrigin = L.origin;
       void img.offsetWidth;
       img.style.transform = 'scale(' + L.S + ')';
-      var safety = setTimeout(enterGlass, 1400);          // 폴백
-      img.addEventListener('transitionend', function te(e) {
-        if (e.propertyName !== 'transform') return;
-        img.removeEventListener('transitionend', te);
-        clearTimeout(safety);
-        enterGlass();
-      });
+      // 줌이 끝나갈 때 오버레이 페이드아웃 → 게임 UI 노출
+      setTimeout(function () { ov.classList.add('fade'); }, 800);
+      setTimeout(function () {
+        if (ov && ov.parentNode) ov.parentNode.removeChild(ov);
+      }, 1280);
     }
 
-    img.style.transformOrigin = layout().origin;          // 초기 origin
-    var auto = setTimeout(finish, 1000);                  // 1초 후 자동 줌인
+    img.style.transformOrigin = coverScale().origin;     // 초기 origin
+    var auto = setTimeout(finish, 1000);                 // 1초 후 자동 줌인
     ov.addEventListener('click', function () { clearTimeout(auto); finish(); });
 
-    // 회전/리사이즈 재계산
+    // 줌 시작 전 회전/리사이즈 시 origin 재계산
     function reflow() {
-      var L = layout();
-      img.style.transformOrigin = L.origin;
-      if (started) {
-        var t = img.style.transition;
-        img.style.transition = 'none';
-        img.style.transform = 'scale(' + L.S + ')';
-        void img.offsetWidth;
-        img.style.transition = t;
-      }
-      if (entered) placeRoot(L);
+      if (started) return;
+      img.style.transformOrigin = coverScale().origin;
     }
     window.addEventListener('resize', reflow);
     window.addEventListener('orientationchange', function () { setTimeout(reflow, 300); });
