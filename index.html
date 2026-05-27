@@ -615,8 +615,62 @@
     .text-center { text-align: center; }
     .text-muted { color: var(--muted); font-size: 13px; }
   </style>
+  <style>
+    /* ── 인트로 (아케이드 줌인) ── */
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: #72cef3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      opacity: 1;
+      transition: opacity 0.35s ease;
+    }
+    #intro-overlay.fade { opacity: 0; }
+    #intro-img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      display: block;
+      transform: scale(1);
+      transform-origin: 51.2% 37.8%;
+      transition: transform 1.1s cubic-bezier(0.5, 0, 0.75, 0.2);
+      will-change: transform;
+    }
+    #intro-overlay.zoom #intro-img { transform: scale(7.5); }
+    #intro-skip {
+      position: absolute;
+      bottom: 26px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 2px;
+      pointer-events: none;
+      animation: introBlink 1.2s ease-in-out infinite;
+    }
+    #intro-overlay.zoom #intro-skip { opacity: 0; transition: opacity 0.2s; }
+    @keyframes introBlink {
+      0%,100% { opacity: 0.4; }
+      50% { opacity: 0.95; }
+    }
+  </style>
 </head>
 <body>
+
+<!-- ── 인트로 ── -->
+<div id="intro-overlay">
+  <img id="intro-img" src="./arcade.png" alt="감다살 라이어게임" />
+  <div id="intro-skip">TAP TO START</div>
+</div>
+
 <div id="root">
 
   <!-- ── 홈 ── -->
@@ -1417,6 +1471,28 @@
     </div>
   </div>
 </div>
+<script>
+  // ── 인트로 줌인 (기존 로직 미간섭, 1회성 오버레이) ──
+  (function () {
+    var ov = document.getElementById('intro-overlay');
+    if (!ov) return;
+    var done = false;
+    function finish() {
+      if (done) return;
+      done = true;
+      ov.classList.add('zoom');                 // 스크린 중심으로 확대
+      setTimeout(function () { ov.classList.add('fade'); }, 850);
+      setTimeout(function () {
+        if (ov && ov.parentNode) ov.parentNode.removeChild(ov);
+      }, 1250);
+    }
+    var auto = setTimeout(finish, 1000);         // 1초 후 자동 줌인
+    ov.addEventListener('click', function () {   // 탭하면 즉시 진행
+      clearTimeout(auto);
+      finish();
+    });
+  })();
+</script>
 
 </body>
 </html>
