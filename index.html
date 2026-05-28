@@ -1252,7 +1252,6 @@
 
     const votedRole = state.roles[state.votedFor - 1];
     const liarsCaught = votedRole.isLiar;
-    Sound.playBgm(liarsCaught ? 'win' : 'lose');
 
     document.getElementById('result-badge').innerHTML = liarsCaught
       ? `<img src="./char-citizen.png" alt="" style="height:104px;width:auto;display:inline-block" />`
@@ -1277,6 +1276,7 @@
     `).join('');
 
     goTo('result');
+    Sound.playBgm(liarsCaught ? 'win' : 'lose');
   }
 
   function playAgain() {
