@@ -660,6 +660,23 @@
       margin-bottom: 4px;
     }
     .song-overlay { z-index: 9300; }
+
+    /* 음소거 토글 버튼 */
+    #sound-toggle {
+      position: fixed;
+      top: 14px; right: 14px;
+      z-index: 8000;
+      width: 44px; height: 44px;
+      border: none; border-radius: 50%;
+      background: rgba(255,255,255,0.88);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+      font-size: 20px; line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+      padding: 0;
+    }
+    #sound-toggle:active { transform: scale(0.92); }
   </style>
 </head>
 <body>
@@ -668,6 +685,9 @@
 <div id="intro-overlay">
   <img id="intro-img" src="./arcade.png" alt="라이어게임" />
 </div>
+
+<!-- 음소거 토글 -->
+<button id="sound-toggle" aria-label="음소거 전환">🔊</button>
 
 <div id="root">
 
@@ -849,6 +869,62 @@
   const CATEGORIES = ['동물','직업','음식','국가','랜드마크','축구선수','스포츠스타','스포츠종목','역사인물','생활용품','브랜드','유명도시','연예인','노래'];
   const SONG_CATS = ['노래(70-80년대)', '노래(00-20년대)'];
 
+  // ── 사운드 시스템 ──
+  const Sound = (() => {
+    const files = {
+      click: './sounds/click.mp3',
+      reveal: './sounds/reveal.mp3',
+      timerStart: './sounds/timer-start.mp3',
+      countdown: './sounds/countdown.mp3',
+      win: './sounds/win.mp3',
+      lose: './sounds/lose.mp3',
+    };
+    const cache = {};
+    Object.entries(files).forEach(([k, v]) => {
+      const a = new Audio(v); a.preload = 'auto'; cache[k] = a;
+    });
+    let muted = localStorage.getItem('liar_muted') === '1';
+    let bgm = null;
+    function play(name) {
+      if (muted) return;
+      const a = cache[name]; if (!a) return;
+      try { a.currentTime = 0; a.play().catch(() => {}); } catch (e) {}
+    }
+    function playBgm(name) {
+      stopBgm();
+      if (muted) return;
+      const a = cache[name]; if (!a) return;
+      try { a.currentTime = 0; a.play().catch(() => {}); bgm = a; } catch (e) {}
+    }
+    function stopBgm() {
+      if (bgm) { try { bgm.pause(); bgm.currentTime = 0; } catch (e) {} bgm = null; }
+    }
+    function updateBtn() {
+      const b = document.getElementById('sound-toggle');
+      if (b) b.textContent = muted ? '🔇' : '🔊';
+    }
+    function toggleMute() {
+      muted = !muted;
+      localStorage.setItem('liar_muted', muted ? '1' : '0');
+      if (muted) stopBgm();
+      updateBtn();
+    }
+    // 초기 버튼 상태 + 클릭 핸들러
+    document.addEventListener('DOMContentLoaded', () => {
+      const b = document.getElementById('sound-toggle');
+      if (b) { b.addEventListener('click', (e) => { e.stopPropagation(); toggleMute(); }); updateBtn(); }
+    });
+    // 전역 클릭음 위임 (button, .mode-btn, .vote-item, .stepper-btn) — 음소거 버튼/카드 제외
+    document.addEventListener('click', (e) => {
+      const t = e.target.closest('button, .mode-btn, .vote-item, .stepper-btn');
+      if (!t) return;
+      if (t.id === 'sound-toggle') return;
+      if (t.closest('.role-card')) return;  // 역할 카드는 reveal 사운드 별도
+      play('click');
+    }, true);
+    return { play, playBgm, stopBgm };
+  })();
+
   // ── 단어 DB 로드 ──
   async function loadWords() {
     try {
@@ -862,6 +938,7 @@
 
   // ── 화면 전환 ──
   function goTo(id) {
+    Sound.stopBgm();
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('screen-' + id).classList.add('active');
   }
@@ -1036,6 +1113,7 @@
   function revealRole() {
     if (state.revealed) return;
     state.revealed = true;
+    Sound.play('reveal');
 
     const role = state.roles[state.currentPlayer];
     const card = document.getElementById('role-card');
@@ -1093,6 +1171,7 @@
     clearInterval(state.timerInterval);
     state.timerRemain = state.timerSecs;
     state.timerRunning = true;
+    Sound.play('timerStart');
     updateTimerUI();
     state.timerInterval = setInterval(tickTimer, 1000);
     document.getElementById('timer-toggle-btn').textContent = '⏸ 일시정지';
@@ -1101,6 +1180,7 @@
   function tickTimer() {
     if (!state.timerRunning) return;
     state.timerRemain--;
+    if (state.timerRemain === 10) Sound.playBgm('countdown');
     updateTimerUI();
     if (state.timerRemain <= 0) {
       clearInterval(state.timerInterval);
@@ -1172,6 +1252,7 @@
 
     const votedRole = state.roles[state.votedFor - 1];
     const liarsCaught = votedRole.isLiar;
+    Sound.playBgm(liarsCaught ? 'win' : 'lose');
 
     document.getElementById('result-badge').innerHTML = liarsCaught
       ? `<img src="./char-citizen.png" alt="" style="height:104px;width:auto;display:inline-block" />`
