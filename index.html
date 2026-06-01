@@ -219,10 +219,11 @@
       border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--surface);
-      color: var(--muted);
+      color: var(--text);
       font-family: 'Noto Sans KR', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
       cursor: pointer;
       text-align: center;
       transition: all 0.2s;
@@ -959,25 +960,15 @@
   // ── 설정 ──
   function renderCategoryGrid() {
     const grid = document.getElementById('category-grid');
-    const isSongSelected = SONG_CATS.some(s => state.categories.includes(s));
     grid.innerHTML = CATEGORIES.map(cat => {
       if (cat === '노래') {
         const selectedEra = SONG_CATS.find(s => state.categories.includes(s));
-        const label = selectedEra ? selectedEra.replace('노래','🎵') : '🎵 노래';
+        const label = selectedEra ? selectedEra.replace('노래(', '').replace(')', '') : '노래';
         return `<button class="cat-btn ${selectedEra ? 'selected' : ''}" onclick="openSongOverlay()">${label}</button>`;
       }
       return `<button class="cat-btn ${state.categories.includes(cat) ? 'selected' : ''}"
-              onclick="toggleCategory('${cat}')">${catEmoji(cat)} ${cat}</button>`;
+              onclick="toggleCategory('${cat}')">${cat}</button>`;
     }).join('');
-  }
-
-  function catEmoji(cat) {
-    const map = {
-      '동물':'🐾', '직업':'💼', '음식':'🍜', '국가':'🌍', '랜드마크':'🗺️',
-      '축구선수':'⚽', '스포츠스타':'🏆', '생활용품':'🧴', '브랜드':'👜',
-      '유명도시':'🏙️', '연예인':'🎤', '스포츠종목':'🏅', '역사인물':'👑', '노래(2000년대)':'🎵', '노래(90년대)':'📻', '노래(최신)':'🎧'
-    };
-    return map[cat] || '📌';
   }
 
   function toggleCategory(cat) {
@@ -1310,17 +1301,15 @@
 <!-- 노래 연대 선택 오버레이 -->
 <div class="song-overlay" id="song-overlay" onclick="closeSongOverlay(event)">
   <div class="song-sheet">
-    <div class="song-sheet-title">🎵 노래 연대 선택</div>
+    <div class="song-sheet-title">노래 연대 선택</div>
     <div class="song-era-btns">
       <button class="era-btn" id="era-7080" onclick="selectEra('노래(70-80년대)')">
-        <span>📻</span>
         <div>
           <div>70-80년대</div>
           <span class="era-sub">조용필, 이문세, 김광석, 나미...</span>
         </div>
       </button>
       <button class="era-btn" id="era-0020" onclick="selectEra('노래(00-20년대)')">
-        <span>🎧</span>
         <div>
           <div>00-20년대</div>
           <span class="era-sub">빅뱅, 2NE1, 소녀시대, BTS, 블랙핑크...</span>
