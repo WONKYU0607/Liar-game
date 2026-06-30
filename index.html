@@ -989,6 +989,59 @@
     return { play, playBgm, stopBgm };
   })();
 
+  // ── AdMob 전면 광고 (3판마다 1회) ──
+  const AdMobAds = (() => {
+    const AD_UNIT_ID = 'ca-app-pub-5845861200468545/3502330536';
+    const COUNT_KEY = 'liar_game_count';
+    let admob = null;
+    let initialized = false;
+    let prepared = false;
+
+    function isNative() {
+      return !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+    }
+    function getPlugin() {
+      const p = window.Capacitor && window.Capacitor.Plugins;
+      return p && p.AdMob ? p.AdMob : null;
+    }
+
+    async function init() {
+      if (!isNative()) return;
+      admob = getPlugin();
+      if (!admob) { console.warn('[AdMob] plugin not found'); return; }
+      try {
+        await admob.initialize({ initializeForTesting: false });
+        initialized = true;
+        prepareNext();
+      } catch (e) { console.warn('[AdMob] init failed:', e); }
+    }
+    async function prepareNext() {
+      if (!initialized || !admob) return;
+      try {
+        await admob.prepareInterstitial({ adId: AD_UNIT_ID });
+        prepared = true;
+      } catch (e) { console.warn('[AdMob] prepare failed:', e); prepared = false; }
+    }
+    async function maybeShow() {
+      const n = (parseInt(localStorage.getItem(COUNT_KEY) || '0', 10) || 0) + 1;
+      localStorage.setItem(COUNT_KEY, String(n));
+      if (n % 3 !== 0) return;
+      if (!initialized || !prepared || !admob) return;
+      try {
+        await admob.showInterstitial();
+        prepared = false;
+        setTimeout(prepareNext, 800);
+      } catch (e) { console.warn('[AdMob] show failed:', e); }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => setTimeout(init, 200));
+    } else {
+      setTimeout(init, 200);
+    }
+    return { maybeShow };
+  })();
+
   // ── 단어 DB 로드 ──
   async function loadWords() {
     try {
@@ -1340,8 +1393,10 @@
   }
 
   function playAgain() {
-    startGame();
-    goTo('role');
+    AdMobAds.maybeShow().finally(() => {
+      startGame();
+      goTo('role');
+    });
   }
 
   function openSongOverlay() {
@@ -1480,10 +1535,12 @@
   // ── 리뷰 요청 모달 ──
   const REVIEW_KEY = 'liar_review_shown';
   function exitToHome() {
-    resetCustomIfUsed();
-    renderCategoryGrid();
-    goTo('home');
-    setTimeout(() => maybeShowReview(), 350);
+    AdMobAds.maybeShow().finally(() => {
+      resetCustomIfUsed();
+      renderCategoryGrid();
+      goTo('home');
+      setTimeout(() => maybeShowReview(), 350);
+    });
   }
   function maybeShowReview() {
     if (localStorage.getItem(REVIEW_KEY) === '1') return false;
