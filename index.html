@@ -291,6 +291,60 @@
     .era-btn.selected { border-color: var(--accent); background: rgba(224, 48, 48, 0.08); }
     .era-sub { font-size: 12px; color: var(--muted); font-weight: 400; display: block; margin-top: 2px; }
 
+    /* ── 직접입력 모달 ── */
+    .custom-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 9300;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .custom-overlay.active { display: flex; }
+    .custom-sheet {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px 20px 0 0;
+      padding: 24px 22px 30px;
+      width: 100%;
+      max-width: 480px;
+      animation: slideUp 0.25s ease;
+    }
+    .custom-title {
+      font-family: 'Jua', sans-serif;
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .custom-hint {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 14px;
+    }
+    #custom-input {
+      width: 100%;
+      min-height: 130px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      resize: vertical;
+      outline: none;
+      box-sizing: border-box;
+    }
+    #custom-input:focus { border-color: var(--accent); }
+    .custom-btns {
+      display: flex; gap: 10px; margin-top: 14px;
+    }
+    .custom-btns .btn { flex: 1; }
+
     /* ── 역할 확인 화면 ── */
     #screen-role {
       justify-content: space-between;
@@ -839,7 +893,7 @@
 
     <div class="result-btns">
       <button class="btn btn-primary" onclick="playAgain()">같은 설정으로 다시</button>
-      <button class="btn btn-ghost" onclick="goTo('home')">처음으로</button>
+      <button class="btn btn-ghost" onclick="exitToHome()">처음으로</button>
     </div>
   </div>
 
@@ -862,10 +916,11 @@
     votedFor: null,
     words: {},
     wordQueue: [],
+    customWords: [],
     currentWordObj: null
   };
 
-  const CATEGORIES = ['동물','직업','음식','국가','랜드마크','축구선수','스포츠스타','스포츠종목','역사인물','생활용품','브랜드','유명도시','연예인','노래'];
+  const CATEGORIES = ['동물','직업','음식','국가','랜드마크','축구선수','스포츠스타','스포츠종목','역사인물','생활용품','브랜드','유명도시','연예인','노래','직접입력'];
   const SONG_CATS = ['노래(70-80년대)', '노래(00-20년대)'];
 
   // ── 사운드 시스템 ──
@@ -965,6 +1020,12 @@
         const selectedEra = SONG_CATS.find(s => state.categories.includes(s));
         const label = selectedEra ? selectedEra.replace('노래(', '').replace(')', '') : '노래';
         return `<button class="cat-btn ${selectedEra ? 'selected' : ''}" onclick="openSongOverlay()">${label}</button>`;
+      }
+      if (cat === '직접입력') {
+        const has = (state.customWords || []).length > 0;
+        const label = has ? `직접입력 (${state.customWords.length})` : '직접입력';
+        const sel = state.categories.includes('직접입력') ? 'selected' : '';
+        return `<button class="cat-btn ${sel}" onclick="openCustomOverlay()">${label}</button>`;
       }
       return `<button class="cat-btn ${state.categories.includes(cat) ? 'selected' : ''}"
               onclick="toggleCategory('${cat}')">${cat}</button>`;
@@ -1296,6 +1357,66 @@
     document.getElementById('song-overlay').classList.remove('active');
     renderCategoryGrid();
   }
+
+  // ── 직접입력 모달 ──
+  function openCustomOverlay() {
+    const ov = document.getElementById('custom-overlay');
+    const ta = document.getElementById('custom-input');
+    if (state.customWords && state.customWords.length) {
+      ta.value = state.customWords.join(', ');
+    }
+    ov.classList.add('active');
+    setTimeout(() => ta.focus(), 50);
+  }
+  function closeCustomOverlay(e) {
+    if (e && e.target !== document.getElementById('custom-overlay')) return;
+    document.getElementById('custom-overlay').classList.remove('active');
+  }
+  function saveCustomWords() {
+    const raw = document.getElementById('custom-input').value || '';
+    const words = raw.split(/[,\n]/).map(s => s.trim()).filter(s => s.length > 0);
+    const uniq = [...new Set(words)];
+    if (uniq.length < 2) {
+      alert('단어를 2개 이상 입력해주세요.');
+      return;
+    }
+    state.customWords = uniq;
+    state.words['직접입력'] = uniq.map(w => ({ word: w, similar: [w] }));
+    delete state.wordQueue['queue_직접입력'];
+    delete state.wordQueue['flipped_직접입력'];
+    state.categories = ['직접입력'];
+    document.getElementById('custom-overlay').classList.remove('active');
+    renderCategoryGrid();
+  }
+
+  // ── 리뷰 요청 모달 ──
+  const REVIEW_KEY = 'liar_review_shown';
+  function exitToHome() {
+    goTo('home');
+    setTimeout(() => maybeShowReview(), 350);
+  }
+  function maybeShowReview() {
+    if (localStorage.getItem(REVIEW_KEY) === '1') return false;
+    document.getElementById('review-overlay').classList.add('active');
+    return true;
+  }
+  function closeReviewOverlay(e) {
+    if (e && e.target !== document.getElementById('review-overlay')) return;
+    dismissReview();
+  }
+  function dismissReview() {
+    localStorage.setItem(REVIEW_KEY, '1');
+    document.getElementById('review-overlay').classList.remove('active');
+  }
+  function openReviewLink() {
+    localStorage.setItem(REVIEW_KEY, '1');
+    document.getElementById('review-overlay').classList.remove('active');
+    const pkg = 'com.wonkyu.liargame';
+    const market = 'market://details?id=' + pkg;
+    const web = 'https://play.google.com/store/apps/details?id=' + pkg;
+    try { window.location.href = market; } catch (e) {}
+    setTimeout(() => { window.open(web, '_blank'); }, 600);
+  }
 </script>
 
 <!-- 노래 연대 선택 오버레이 -->
@@ -1306,15 +1427,38 @@
       <button class="era-btn" id="era-7080" onclick="selectEra('노래(70-80년대)')">
         <div>
           <div>70-80년대</div>
-          <span class="era-sub">조용필, 이문세, 김광석, 나미...</span>
         </div>
       </button>
       <button class="era-btn" id="era-0020" onclick="selectEra('노래(00-20년대)')">
         <div>
           <div>00-20년대</div>
-          <span class="era-sub">빅뱅, 2NE1, 소녀시대, BTS, 블랙핑크...</span>
         </div>
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── 직접입력 모달 ── -->
+<div class="custom-overlay" id="custom-overlay" onclick="closeCustomOverlay(event)">
+  <div class="custom-sheet">
+    <div class="custom-title">제시어 직접 입력</div>
+    <div class="custom-hint">쉼표( , ) 또는 줄바꿈으로 단어 구분 · 최소 2개</div>
+    <textarea id="custom-input" placeholder="예) 사과, 바나나, 수박&#10;또는 한 줄에 하나씩"></textarea>
+    <div class="custom-btns">
+      <button class="btn btn-ghost" onclick="closeCustomOverlay()">취소</button>
+      <button class="btn btn-primary" onclick="saveCustomWords()">확인</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── 리뷰 요청 모달 ── -->
+<div class="custom-overlay" id="review-overlay" onclick="closeReviewOverlay(event)">
+  <div class="custom-sheet">
+    <div class="custom-title">재밌게 즐기셨나요?</div>
+    <div class="custom-hint">앱 개선에 큰 힘이 됩니다 · 별점 한 번 부탁드려요!</div>
+    <div class="custom-btns">
+      <button class="btn btn-ghost" onclick="dismissReview()">다음에</button>
+      <button class="btn btn-primary" onclick="openReviewLink()">리뷰 작성</button>
     </div>
   </div>
 </div>
