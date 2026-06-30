@@ -324,26 +324,31 @@
       text-align: center;
       margin-bottom: 14px;
     }
-    #custom-input {
+    .custom-input {
       width: 100%;
-      min-height: 130px;
-      padding: 12px 14px;
+      padding: 14px 14px;
       border-radius: 12px;
       border: 1px solid var(--border);
       background: var(--card);
       color: var(--text);
       font-family: 'Noto Sans KR', sans-serif;
-      font-size: 15px;
-      line-height: 1.55;
-      resize: vertical;
+      font-size: 16px;
+      line-height: 1.4;
       outline: none;
       box-sizing: border-box;
     }
-    #custom-input:focus { border-color: var(--accent); }
+    .custom-input:focus { border-color: var(--accent); }
     .custom-btns {
       display: flex; gap: 10px; margin-top: 14px;
     }
     .custom-btns .btn { flex: 1; }
+    .custom-steps {
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+    }
 
     /* ── 역할 확인 화면 ── */
     #screen-role {
@@ -892,7 +897,7 @@
     <div class="reveal-cards" id="reveal-cards"></div>
 
     <div class="result-btns">
-      <button class="btn btn-primary" onclick="playAgain()">같은 설정으로 다시</button>
+      <button class="btn btn-primary" id="btn-play-again" onclick="playAgain()">같은 설정으로 다시</button>
       <button class="btn btn-ghost" onclick="exitToHome()">처음으로</button>
     </div>
   </div>
@@ -1022,10 +1027,8 @@
         return `<button class="cat-btn ${selectedEra ? 'selected' : ''}" onclick="openSongOverlay()">${label}</button>`;
       }
       if (cat === '직접입력') {
-        const has = (state.customWords || []).length > 0;
-        const label = has ? `직접입력 (${state.customWords.length})` : '직접입력';
         const sel = state.categories.includes('직접입력') ? 'selected' : '';
-        return `<button class="cat-btn ${sel}" onclick="openCustomOverlay()">${label}</button>`;
+        return `<button class="cat-btn ${sel}" onclick="openCustomOverlay()">직접입력</button>`;
       }
       return `<button class="cat-btn ${state.categories.includes(cat) ? 'selected' : ''}"
               onclick="toggleCategory('${cat}')">${cat}</button>`;
@@ -1329,6 +1332,8 @@
     `).join('');
 
     goTo('result');
+    const playAgainBtn = document.getElementById('btn-play-again');
+    if (playAgainBtn) playAgainBtn.style.display = state.categories.includes('직접입력') ? 'none' : '';
     Sound.playBgm(liarsCaught ? 'win' : 'lose');
   }
 
@@ -1359,29 +1364,100 @@
   }
 
   // ── 직접입력 모달 ──
+  let _customForm = { step: 1, citizen: '', spy: '' };
+
   function openCustomOverlay() {
-    const ov = document.getElementById('custom-overlay');
-    const ta = document.getElementById('custom-input');
-    if (state.customWords && state.customWords.length) {
-      ta.value = state.customWords.join(', ');
-    }
-    ov.classList.add('active');
-    setTimeout(() => ta.focus(), 50);
+    _customForm = { step: 1, citizen: '', spy: '' };
+    renderCustomSheet();
+    document.getElementById('custom-overlay').classList.add('active');
   }
   function closeCustomOverlay(e) {
     if (e && e.target !== document.getElementById('custom-overlay')) return;
     document.getElementById('custom-overlay').classList.remove('active');
   }
-  function saveCustomWords() {
-    const raw = document.getElementById('custom-input').value || '';
-    const words = raw.split(/[,\n]/).map(s => s.trim()).filter(s => s.length > 0);
-    const uniq = [...new Set(words)];
-    if (uniq.length < 2) {
-      alert('단어를 2개 이상 입력해주세요.');
-      return;
+
+  function renderCustomSheet() {
+    const sheet = document.getElementById('custom-sheet');
+    const isSpy = state.mode === 'spy';
+    const step = _customForm.step;
+    let html = '';
+
+    if (!isSpy) {
+      // 기본 모드: 단어 1개
+      html = `
+        <div class="custom-title">제시어 입력</div>
+        <div class="custom-hint">시민에게 보여줄 단어 하나</div>
+        <input type="text" id="custom-w" class="custom-input" maxlength="30" />
+        <div class="custom-btns">
+          <button class="btn btn-ghost" onclick="closeCustomOverlay()">취소</button>
+          <button class="btn btn-primary" onclick="saveCustomWords()">확인</button>
+        </div>`;
+    } else if (step === 1) {
+      // 스파이 1단계: 시민 단어
+      html = `
+        <div class="custom-steps">1 / 2</div>
+        <div class="custom-title">시민 제시어</div>
+        <div class="custom-hint">시민들이 받을 단어</div>
+        <input type="text" id="custom-w" class="custom-input" maxlength="30" />
+        <div class="custom-btns">
+          <button class="btn btn-ghost" onclick="closeCustomOverlay()">취소</button>
+          <button class="btn btn-primary" onclick="customNext()">다음</button>
+        </div>`;
+    } else {
+      // 스파이 2단계: 스파이 단어
+      html = `
+        <div class="custom-steps">2 / 2</div>
+        <div class="custom-title">스파이 제시어</div>
+        <div class="custom-hint">스파이가 받을 단어 (살짝 다르게)</div>
+        <input type="text" id="custom-w" class="custom-input" maxlength="30" />
+        <div class="custom-btns">
+          <button class="btn btn-ghost" onclick="customBack()">뒤로</button>
+          <button class="btn btn-primary" onclick="saveCustomWords()">확인</button>
+        </div>`;
     }
-    state.customWords = uniq;
-    state.words['직접입력'] = uniq.map(w => ({ word: w, similar: [w] }));
+    sheet.innerHTML = html;
+    const input = document.getElementById('custom-w');
+    if (input) {
+      if (isSpy) input.value = (step === 1 ? _customForm.citizen : _customForm.spy);
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          if (isSpy && step === 1) customNext(); else saveCustomWords();
+        }
+      });
+      setTimeout(() => input.focus(), 50);
+    }
+  }
+
+  function customNext() {
+    const v = (document.getElementById('custom-w').value || '').trim();
+    if (!v) { alert('단어를 입력해주세요.'); return; }
+    _customForm.citizen = v;
+    _customForm.step = 2;
+    renderCustomSheet();
+  }
+  function customBack() {
+    const v = (document.getElementById('custom-w').value || '').trim();
+    _customForm.spy = v;
+    _customForm.step = 1;
+    renderCustomSheet();
+  }
+  function saveCustomWords() {
+    const v = (document.getElementById('custom-w').value || '').trim();
+    if (!v) { alert('단어를 입력해주세요.'); return; }
+    const isSpy = state.mode === 'spy';
+    let citizen, spy;
+    if (isSpy) {
+      _customForm.spy = v;
+      citizen = _customForm.citizen;
+      spy = _customForm.spy;
+      if (citizen === spy) { alert('시민과 스파이의 단어가 같아요.'); return; }
+    } else {
+      citizen = v;
+      spy = v;
+    }
+    state.customWords = isSpy ? [citizen, spy] : [citizen];
+    state.words['직접입력'] = [{ word: citizen, similar: [spy] }];
     delete state.wordQueue['queue_직접입력'];
     delete state.wordQueue['flipped_직접입력'];
     state.categories = ['직접입력'];
@@ -1389,9 +1465,20 @@
     renderCategoryGrid();
   }
 
+  function resetCustomIfUsed() {
+    if (!state.categories.includes('직접입력')) return;
+    state.customWords = [];
+    state.categories = ['동물'];
+    delete state.words['직접입력'];
+    delete state.wordQueue['queue_직접입력'];
+    delete state.wordQueue['flipped_직접입력'];
+  }
+
   // ── 리뷰 요청 모달 ──
   const REVIEW_KEY = 'liar_review_shown';
   function exitToHome() {
+    resetCustomIfUsed();
+    renderCategoryGrid();
     goTo('home');
     setTimeout(() => maybeShowReview(), 350);
   }
@@ -1440,15 +1527,7 @@
 
 <!-- ── 직접입력 모달 ── -->
 <div class="custom-overlay" id="custom-overlay" onclick="closeCustomOverlay(event)">
-  <div class="custom-sheet">
-    <div class="custom-title">제시어 직접 입력</div>
-    <div class="custom-hint">쉼표( , ) 또는 줄바꿈으로 단어 구분 · 최소 2개</div>
-    <textarea id="custom-input" placeholder="예) 사과, 바나나, 수박&#10;또는 한 줄에 하나씩"></textarea>
-    <div class="custom-btns">
-      <button class="btn btn-ghost" onclick="closeCustomOverlay()">취소</button>
-      <button class="btn btn-primary" onclick="saveCustomWords()">확인</button>
-    </div>
-  </div>
+  <div class="custom-sheet" id="custom-sheet"></div>
 </div>
 
 <!-- ── 리뷰 요청 모달 ── -->
