@@ -927,6 +927,8 @@
 
   const CATEGORIES = ['동물','직업','음식','국가','랜드마크','축구선수','스포츠스타','스포츠종목','역사인물','생활용품','브랜드','유명도시','연예인','노래','직접입력'];
   const SONG_CATS = ['노래(70-80년대)', '노래(00-20년대)'];
+  const CAT_DISPLAY = { '스포츠스타': '스포츠 스타', '스포츠종목': '스포츠 종목' };
+  const catLabel = (c) => CAT_DISPLAY[c] || c;
 
   // ── 사운드 시스템 ──
   const Sound = (() => {
@@ -1031,7 +1033,7 @@
         return `<button class="cat-btn ${sel}" onclick="openCustomOverlay()">직접입력</button>`;
       }
       return `<button class="cat-btn ${state.categories.includes(cat) ? 'selected' : ''}"
-              onclick="toggleCategory('${cat}')">${cat}</button>`;
+              onclick="toggleCategory('${cat}')">${catLabel(cat)}</button>`;
     }).join('');
   }
 
@@ -1463,6 +1465,7 @@
     state.categories = ['직접입력'];
     document.getElementById('custom-overlay').classList.remove('active');
     renderCategoryGrid();
+    setTimeout(() => startGame(), 200);
   }
 
   function resetCustomIfUsed() {
