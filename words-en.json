@@ -1,0 +1,2210 @@
+{
+  "동물": [
+    {
+      "word": "Lion",
+      "similar": [
+        "Tiger"
+      ]
+    },
+    {
+      "word": "Elephant",
+      "similar": [
+        "Hippo"
+      ]
+    },
+    {
+      "word": "Giraffe",
+      "similar": [
+        "Zebra"
+      ]
+    },
+    {
+      "word": "Penguin",
+      "similar": [
+        "Seal"
+      ]
+    },
+    {
+      "word": "Dolphin",
+      "similar": [
+        "Whale"
+      ]
+    },
+    {
+      "word": "Kangaroo",
+      "similar": [
+        "Koala"
+      ]
+    },
+    {
+      "word": "Panda",
+      "similar": [
+        "Bear"
+      ]
+    },
+    {
+      "word": "Wolf",
+      "similar": [
+        "Fox"
+      ]
+    },
+    {
+      "word": "Rabbit",
+      "similar": [
+        "Hamster"
+      ]
+    },
+    {
+      "word": "Horse",
+      "similar": [
+        "Donkey"
+      ]
+    },
+    {
+      "word": "Cow",
+      "similar": [
+        "Goat"
+      ]
+    },
+    {
+      "word": "Pig",
+      "similar": [
+        "Wild Boar"
+      ]
+    },
+    {
+      "word": "Chicken",
+      "similar": [
+        "Duck"
+      ]
+    },
+    {
+      "word": "Eagle",
+      "similar": [
+        "Hawk"
+      ]
+    },
+    {
+      "word": "Owl",
+      "similar": [
+        "Parrot"
+      ]
+    },
+    {
+      "word": "Snake",
+      "similar": [
+        "Lizard"
+      ]
+    },
+    {
+      "word": "Crocodile",
+      "similar": [
+        "Alligator"
+      ]
+    },
+    {
+      "word": "Turtle",
+      "similar": [
+        "Tortoise"
+      ]
+    },
+    {
+      "word": "Frog",
+      "similar": [
+        "Toad"
+      ]
+    },
+    {
+      "word": "Shark",
+      "similar": [
+        "Stingray"
+      ]
+    },
+    {
+      "word": "Octopus",
+      "similar": [
+        "Squid"
+      ]
+    },
+    {
+      "word": "Crab",
+      "similar": [
+        "Lobster"
+      ]
+    },
+    {
+      "word": "Monkey",
+      "similar": [
+        "Gorilla"
+      ]
+    },
+    {
+      "word": "Squirrel",
+      "similar": [
+        "Chipmunk"
+      ]
+    },
+    {
+      "word": "Deer",
+      "similar": [
+        "Elk"
+      ]
+    },
+    {
+      "word": "Camel",
+      "similar": [
+        "Llama"
+      ]
+    },
+    {
+      "word": "Sheep",
+      "similar": [
+        "Alpaca"
+      ]
+    },
+    {
+      "word": "Cat",
+      "similar": [
+        "Dog"
+      ]
+    },
+    {
+      "word": "Mouse",
+      "similar": [
+        "Rat"
+      ]
+    }
+  ],
+  "직업": [
+    {
+      "word": "Doctor",
+      "similar": [
+        "Nurse"
+      ]
+    },
+    {
+      "word": "Firefighter",
+      "similar": [
+        "Police Officer"
+      ]
+    },
+    {
+      "word": "Teacher",
+      "similar": [
+        "Professor"
+      ]
+    },
+    {
+      "word": "Chef",
+      "similar": [
+        "Baker"
+      ]
+    },
+    {
+      "word": "Pilot",
+      "similar": [
+        "Flight Attendant"
+      ]
+    },
+    {
+      "word": "Lawyer",
+      "similar": [
+        "Judge"
+      ]
+    },
+    {
+      "word": "Dentist",
+      "similar": [
+        "Surgeon"
+      ]
+    },
+    {
+      "word": "Soldier",
+      "similar": [
+        "Marine"
+      ]
+    },
+    {
+      "word": "Scientist",
+      "similar": [
+        "Engineer"
+      ]
+    },
+    {
+      "word": "Programmer",
+      "similar": [
+        "Designer"
+      ]
+    },
+    {
+      "word": "Journalist",
+      "similar": [
+        "Photographer"
+      ]
+    },
+    {
+      "word": "Plumber",
+      "similar": [
+        "Electrician"
+      ]
+    },
+    {
+      "word": "Mechanic",
+      "similar": [
+        "Carpenter"
+      ]
+    },
+    {
+      "word": "Waiter",
+      "similar": [
+        "Bartender"
+      ]
+    },
+    {
+      "word": "Accountant",
+      "similar": [
+        "Banker"
+      ]
+    },
+    {
+      "word": "Veterinarian",
+      "similar": [
+        "Zookeeper"
+      ]
+    },
+    {
+      "word": "Actor",
+      "similar": [
+        "Singer"
+      ]
+    }
+  ],
+  "음식": [
+    {
+      "word": "Pizza",
+      "similar": [
+        "Pasta"
+      ]
+    },
+    {
+      "word": "Hamburger",
+      "similar": [
+        "Hot Dog"
+      ]
+    },
+    {
+      "word": "Steak",
+      "similar": [
+        "Roast Chicken"
+      ]
+    },
+    {
+      "word": "Sushi",
+      "similar": [
+        "Sashimi"
+      ]
+    },
+    {
+      "word": "Ramen",
+      "similar": [
+        "Pho"
+      ]
+    },
+    {
+      "word": "Taco",
+      "similar": [
+        "Burrito"
+      ]
+    },
+    {
+      "word": "Fried Chicken",
+      "similar": [
+        "Chicken Nuggets"
+      ]
+    },
+    {
+      "word": "French Fries",
+      "similar": [
+        "Onion Rings"
+      ]
+    },
+    {
+      "word": "Pancakes",
+      "similar": [
+        "Waffles"
+      ]
+    },
+    {
+      "word": "Bacon and Eggs",
+      "similar": [
+        "Omelette"
+      ]
+    },
+    {
+      "word": "Lasagna",
+      "similar": [
+        "Ravioli"
+      ]
+    },
+    {
+      "word": "Fish and Chips",
+      "similar": [
+        "Shrimp Tempura"
+      ]
+    },
+    {
+      "word": "BBQ Ribs",
+      "similar": [
+        "Grilled Sausage"
+      ]
+    },
+    {
+      "word": "Sandwich",
+      "similar": [
+        "Wrap"
+      ]
+    },
+    {
+      "word": "Bagel",
+      "similar": [
+        "Croissant"
+      ]
+    },
+    {
+      "word": "Donut",
+      "similar": [
+        "Muffin"
+      ]
+    },
+    {
+      "word": "Cheesecake",
+      "similar": [
+        "Tiramisu"
+      ]
+    },
+    {
+      "word": "Ice Cream",
+      "similar": [
+        "Gelato"
+      ]
+    },
+    {
+      "word": "Chocolate Cake",
+      "similar": [
+        "Brownie"
+      ]
+    },
+    {
+      "word": "Apple Pie",
+      "similar": [
+        "Pumpkin Pie"
+      ]
+    },
+    {
+      "word": "Popcorn",
+      "similar": [
+        "Nachos"
+      ]
+    },
+    {
+      "word": "Curry",
+      "similar": [
+        "Chili"
+      ]
+    },
+    {
+      "word": "Dumplings",
+      "similar": [
+        "Spring Rolls"
+      ]
+    },
+    {
+      "word": "Fried Rice",
+      "similar": [
+        "Risotto"
+      ]
+    },
+    {
+      "word": "Grilled Cheese",
+      "similar": [
+        "Quesadilla"
+      ]
+    },
+    {
+      "word": "Pretzel",
+      "similar": [
+        "Breadstick"
+      ]
+    },
+    {
+      "word": "Kebab",
+      "similar": [
+        "Meatballs"
+      ]
+    }
+  ],
+  "국가": [
+    {
+      "word": "France",
+      "similar": [
+        "Italy"
+      ]
+    },
+    {
+      "word": "Japan",
+      "similar": [
+        "South Korea"
+      ]
+    },
+    {
+      "word": "United States",
+      "similar": [
+        "Canada"
+      ]
+    },
+    {
+      "word": "Brazil",
+      "similar": [
+        "Argentina"
+      ]
+    },
+    {
+      "word": "Germany",
+      "similar": [
+        "Austria"
+      ]
+    },
+    {
+      "word": "Spain",
+      "similar": [
+        "Portugal"
+      ]
+    },
+    {
+      "word": "China",
+      "similar": [
+        "Mongolia"
+      ]
+    },
+    {
+      "word": "India",
+      "similar": [
+        "Pakistan"
+      ]
+    },
+    {
+      "word": "Russia",
+      "similar": [
+        "Ukraine"
+      ]
+    },
+    {
+      "word": "Mexico",
+      "similar": [
+        "Guatemala"
+      ]
+    },
+    {
+      "word": "Australia",
+      "similar": [
+        "New Zealand"
+      ]
+    },
+    {
+      "word": "Egypt",
+      "similar": [
+        "Morocco"
+      ]
+    },
+    {
+      "word": "Turkey",
+      "similar": [
+        "Greece"
+      ]
+    },
+    {
+      "word": "Thailand",
+      "similar": [
+        "Vietnam"
+      ]
+    },
+    {
+      "word": "Switzerland",
+      "similar": [
+        "Belgium"
+      ]
+    },
+    {
+      "word": "Netherlands",
+      "similar": [
+        "Denmark"
+      ]
+    },
+    {
+      "word": "Sweden",
+      "similar": [
+        "Norway"
+      ]
+    },
+    {
+      "word": "Finland",
+      "similar": [
+        "Iceland"
+      ]
+    },
+    {
+      "word": "Poland",
+      "similar": [
+        "Czech Republic"
+      ]
+    },
+    {
+      "word": "Ireland",
+      "similar": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "word": "South Africa",
+      "similar": [
+        "Kenya"
+      ]
+    },
+    {
+      "word": "Nigeria",
+      "similar": [
+        "Ghana"
+      ]
+    },
+    {
+      "word": "Saudi Arabia",
+      "similar": [
+        "United Arab Emirates"
+      ]
+    },
+    {
+      "word": "Israel",
+      "similar": [
+        "Jordan"
+      ]
+    },
+    {
+      "word": "Indonesia",
+      "similar": [
+        "Malaysia"
+      ]
+    },
+    {
+      "word": "Philippines",
+      "similar": [
+        "Singapore"
+      ]
+    },
+    {
+      "word": "Peru",
+      "similar": [
+        "Chile"
+      ]
+    },
+    {
+      "word": "Colombia",
+      "similar": [
+        "Venezuela"
+      ]
+    },
+    {
+      "word": "Cuba",
+      "similar": [
+        "Jamaica"
+      ]
+    },
+    {
+      "word": "Hungary",
+      "similar": [
+        "Romania"
+      ]
+    },
+    {
+      "word": "Croatia",
+      "similar": [
+        "Serbia"
+      ]
+    },
+    {
+      "word": "Iran",
+      "similar": [
+        "Iraq"
+      ]
+    }
+  ],
+  "랜드마크": [
+    {
+      "word": "Eiffel Tower",
+      "similar": [
+        "Arc de Triomphe"
+      ]
+    },
+    {
+      "word": "Statue of Liberty",
+      "similar": [
+        "Empire State Building"
+      ]
+    },
+    {
+      "word": "Big Ben",
+      "similar": [
+        "London Eye"
+      ]
+    },
+    {
+      "word": "Colosseum",
+      "similar": [
+        "Pantheon"
+      ]
+    },
+    {
+      "word": "Taj Mahal",
+      "similar": [
+        "Red Fort"
+      ]
+    },
+    {
+      "word": "Great Wall of China",
+      "similar": [
+        "Forbidden City"
+      ]
+    },
+    {
+      "word": "Pyramids of Giza",
+      "similar": [
+        "Great Sphinx"
+      ]
+    },
+    {
+      "word": "Machu Picchu",
+      "similar": [
+        "Chichen Itza"
+      ]
+    },
+    {
+      "word": "Sydney Opera House",
+      "similar": [
+        "Sydney Harbour Bridge"
+      ]
+    },
+    {
+      "word": "Christ the Redeemer",
+      "similar": [
+        "Sugarloaf Mountain"
+      ]
+    },
+    {
+      "word": "Leaning Tower of Pisa",
+      "similar": [
+        "Florence Cathedral"
+      ]
+    },
+    {
+      "word": "Golden Gate Bridge",
+      "similar": [
+        "Alcatraz Island"
+      ]
+    },
+    {
+      "word": "Mount Rushmore",
+      "similar": [
+        "Hoover Dam"
+      ]
+    },
+    {
+      "word": "Sagrada Familia",
+      "similar": [
+        "Park Guell"
+      ]
+    },
+    {
+      "word": "Stonehenge",
+      "similar": [
+        "Tower of London"
+      ]
+    },
+    {
+      "word": "Burj Khalifa",
+      "similar": [
+        "Petronas Towers"
+      ]
+    }
+  ],
+  "축구선수": [
+    {
+      "word": "Lionel Messi",
+      "similar": [
+        "Cristiano Ronaldo"
+      ]
+    },
+    {
+      "word": "Kylian Mbappe",
+      "similar": [
+        "Erling Haaland"
+      ]
+    },
+    {
+      "word": "Neymar",
+      "similar": [
+        "Vinicius Junior"
+      ]
+    },
+    {
+      "word": "Luka Modric",
+      "similar": [
+        "Toni Kroos"
+      ]
+    },
+    {
+      "word": "Kevin De Bruyne",
+      "similar": [
+        "Bernardo Silva"
+      ]
+    },
+    {
+      "word": "Mohamed Salah",
+      "similar": [
+        "Sadio Mane"
+      ]
+    },
+    {
+      "word": "Robert Lewandowski",
+      "similar": [
+        "Karim Benzema"
+      ]
+    },
+    {
+      "word": "Harry Kane",
+      "similar": [
+        "Son Heung-min"
+      ]
+    },
+    {
+      "word": "Jude Bellingham",
+      "similar": [
+        "Phil Foden"
+      ]
+    },
+    {
+      "word": "Antoine Griezmann",
+      "similar": [
+        "Ousmane Dembele"
+      ]
+    },
+    {
+      "word": "Virgil van Dijk",
+      "similar": [
+        "Ruben Dias"
+      ]
+    },
+    {
+      "word": "Alisson",
+      "similar": [
+        "Ederson"
+      ]
+    },
+    {
+      "word": "Thibaut Courtois",
+      "similar": [
+        "Jan Oblak"
+      ]
+    },
+    {
+      "word": "Rodri",
+      "similar": [
+        "Casemiro"
+      ]
+    },
+    {
+      "word": "Pedri",
+      "similar": [
+        "Gavi"
+      ]
+    },
+    {
+      "word": "Jamal Musiala",
+      "similar": [
+        "Florian Wirtz"
+      ]
+    },
+    {
+      "word": "Bukayo Saka",
+      "similar": [
+        "Marcus Rashford"
+      ]
+    },
+    {
+      "word": "Victor Osimhen",
+      "similar": [
+        "Lautaro Martinez"
+      ]
+    },
+    {
+      "word": "Dusan Vlahovic",
+      "similar": [
+        "Khvicha Kvaratskhelia"
+      ]
+    },
+    {
+      "word": "Zinedine Zidane",
+      "similar": [
+        "Ronaldinho"
+      ]
+    },
+    {
+      "word": "David Beckham",
+      "similar": [
+        "Luis Figo"
+      ]
+    },
+    {
+      "word": "Thierry Henry",
+      "similar": [
+        "Didier Drogba"
+      ]
+    },
+    {
+      "word": "Diego Maradona",
+      "similar": [
+        "Pele"
+      ]
+    },
+    {
+      "word": "Steven Gerrard",
+      "similar": [
+        "Frank Lampard"
+      ]
+    },
+    {
+      "word": "Xavi",
+      "similar": [
+        "Andres Iniesta"
+      ]
+    },
+    {
+      "word": "Carles Puyol",
+      "similar": [
+        "Sergio Ramos"
+      ]
+    },
+    {
+      "word": "Gianluigi Buffon",
+      "similar": [
+        "Iker Casillas"
+      ]
+    },
+    {
+      "word": "Zlatan Ibrahimovic",
+      "similar": [
+        "Wayne Rooney"
+      ]
+    },
+    {
+      "word": "Kaka",
+      "similar": [
+        "Robinho"
+      ]
+    },
+    {
+      "word": "Fabio Cannavaro",
+      "similar": [
+        "Alessandro Nesta"
+      ]
+    },
+    {
+      "word": "Francesco Totti",
+      "similar": [
+        "Alessandro Del Piero"
+      ]
+    },
+    {
+      "word": "Luis Suarez",
+      "similar": [
+        "Edinson Cavani"
+      ]
+    },
+    {
+      "word": "Sergio Aguero",
+      "similar": [
+        "Carlos Tevez"
+      ]
+    },
+    {
+      "word": "Arjen Robben",
+      "similar": [
+        "Franck Ribery"
+      ]
+    }
+  ],
+  "스포츠스타": [
+    {
+      "word": "Michael Jordan",
+      "similar": [
+        "LeBron James"
+      ]
+    },
+    {
+      "word": "Kobe Bryant",
+      "similar": [
+        "Shaquille O'Neal"
+      ]
+    },
+    {
+      "word": "Stephen Curry",
+      "similar": [
+        "Kevin Durant"
+      ]
+    },
+    {
+      "word": "Serena Williams",
+      "similar": [
+        "Venus Williams"
+      ]
+    },
+    {
+      "word": "Roger Federer",
+      "similar": [
+        "Rafael Nadal"
+      ]
+    },
+    {
+      "word": "Novak Djokovic",
+      "similar": [
+        "Andy Murray"
+      ]
+    },
+    {
+      "word": "Tiger Woods",
+      "similar": [
+        "Rory McIlroy"
+      ]
+    },
+    {
+      "word": "Usain Bolt",
+      "similar": [
+        "Carl Lewis"
+      ]
+    },
+    {
+      "word": "Michael Phelps",
+      "similar": [
+        "Katie Ledecky"
+      ]
+    },
+    {
+      "word": "Muhammad Ali",
+      "similar": [
+        "Mike Tyson"
+      ]
+    },
+    {
+      "word": "Floyd Mayweather",
+      "similar": [
+        "Manny Pacquiao"
+      ]
+    },
+    {
+      "word": "Lewis Hamilton",
+      "similar": [
+        "Max Verstappen"
+      ]
+    },
+    {
+      "word": "Tom Brady",
+      "similar": [
+        "Peyton Manning"
+      ]
+    },
+    {
+      "word": "Babe Ruth",
+      "similar": [
+        "Shohei Ohtani"
+      ]
+    },
+    {
+      "word": "Wayne Gretzky",
+      "similar": [
+        "Sidney Crosby"
+      ]
+    },
+    {
+      "word": "Simone Biles",
+      "similar": [
+        "Nadia Comaneci"
+      ]
+    },
+    {
+      "word": "Conor McGregor",
+      "similar": [
+        "Khabib Nurmagomedov"
+      ]
+    }
+  ],
+  "브랜드": [
+    {
+      "word": "Nike",
+      "similar": [
+        "Adidas"
+      ]
+    },
+    {
+      "word": "Apple",
+      "similar": [
+        "Samsung"
+      ]
+    },
+    {
+      "word": "Coca-Cola",
+      "similar": [
+        "Pepsi"
+      ]
+    },
+    {
+      "word": "McDonald's",
+      "similar": [
+        "Burger King"
+      ]
+    },
+    {
+      "word": "Starbucks",
+      "similar": [
+        "Dunkin'"
+      ]
+    },
+    {
+      "word": "Google",
+      "similar": [
+        "Microsoft"
+      ]
+    },
+    {
+      "word": "Amazon",
+      "similar": [
+        "eBay"
+      ]
+    },
+    {
+      "word": "Netflix",
+      "similar": [
+        "Disney+"
+      ]
+    },
+    {
+      "word": "Tesla",
+      "similar": [
+        "BMW"
+      ]
+    },
+    {
+      "word": "Mercedes-Benz",
+      "similar": [
+        "Audi"
+      ]
+    },
+    {
+      "word": "Toyota",
+      "similar": [
+        "Honda"
+      ]
+    },
+    {
+      "word": "Ferrari",
+      "similar": [
+        "Lamborghini"
+      ]
+    },
+    {
+      "word": "Louis Vuitton",
+      "similar": [
+        "Gucci"
+      ]
+    },
+    {
+      "word": "Chanel",
+      "similar": [
+        "Dior"
+      ]
+    },
+    {
+      "word": "Rolex",
+      "similar": [
+        "Omega"
+      ]
+    },
+    {
+      "word": "IKEA",
+      "similar": [
+        "Muji"
+      ]
+    },
+    {
+      "word": "LEGO",
+      "similar": [
+        "Playmobil"
+      ]
+    },
+    {
+      "word": "Sony",
+      "similar": [
+        "Panasonic"
+      ]
+    },
+    {
+      "word": "Intel",
+      "similar": [
+        "AMD"
+      ]
+    },
+    {
+      "word": "Facebook",
+      "similar": [
+        "Instagram"
+      ]
+    },
+    {
+      "word": "YouTube",
+      "similar": [
+        "TikTok"
+      ]
+    },
+    {
+      "word": "Uber",
+      "similar": [
+        "Lyft"
+      ]
+    },
+    {
+      "word": "Airbnb",
+      "similar": [
+        "Booking.com"
+      ]
+    },
+    {
+      "word": "Zara",
+      "similar": [
+        "H&M"
+      ]
+    }
+  ],
+  "유명도시": [
+    {
+      "word": "New York",
+      "similar": [
+        "Los Angeles"
+      ]
+    },
+    {
+      "word": "Paris",
+      "similar": [
+        "London"
+      ]
+    },
+    {
+      "word": "Tokyo",
+      "similar": [
+        "Osaka"
+      ]
+    },
+    {
+      "word": "Rome",
+      "similar": [
+        "Milan"
+      ]
+    },
+    {
+      "word": "Barcelona",
+      "similar": [
+        "Madrid"
+      ]
+    },
+    {
+      "word": "Berlin",
+      "similar": [
+        "Munich"
+      ]
+    },
+    {
+      "word": "Amsterdam",
+      "similar": [
+        "Brussels"
+      ]
+    },
+    {
+      "word": "Vienna",
+      "similar": [
+        "Prague"
+      ]
+    },
+    {
+      "word": "Sydney",
+      "similar": [
+        "Melbourne"
+      ]
+    },
+    {
+      "word": "Toronto",
+      "similar": [
+        "Vancouver"
+      ]
+    },
+    {
+      "word": "Dubai",
+      "similar": [
+        "Abu Dhabi"
+      ]
+    },
+    {
+      "word": "Singapore",
+      "similar": [
+        "Hong Kong"
+      ]
+    },
+    {
+      "word": "Bangkok",
+      "similar": [
+        "Kuala Lumpur"
+      ]
+    },
+    {
+      "word": "Istanbul",
+      "similar": [
+        "Athens"
+      ]
+    },
+    {
+      "word": "Moscow",
+      "similar": [
+        "Saint Petersburg"
+      ]
+    },
+    {
+      "word": "Rio de Janeiro",
+      "similar": [
+        "Sao Paulo"
+      ]
+    },
+    {
+      "word": "Buenos Aires",
+      "similar": [
+        "Santiago"
+      ]
+    },
+    {
+      "word": "Mexico City",
+      "similar": [
+        "Havana"
+      ]
+    },
+    {
+      "word": "Cairo",
+      "similar": [
+        "Marrakech"
+      ]
+    },
+    {
+      "word": "Cape Town",
+      "similar": [
+        "Nairobi"
+      ]
+    },
+    {
+      "word": "Mumbai",
+      "similar": [
+        "New Delhi"
+      ]
+    },
+    {
+      "word": "Shanghai",
+      "similar": [
+        "Beijing"
+      ]
+    },
+    {
+      "word": "Chicago",
+      "similar": [
+        "Boston"
+      ]
+    },
+    {
+      "word": "San Francisco",
+      "similar": [
+        "Seattle"
+      ]
+    },
+    {
+      "word": "Miami",
+      "similar": [
+        "Las Vegas"
+      ]
+    },
+    {
+      "word": "Lisbon",
+      "similar": [
+        "Porto"
+      ]
+    },
+    {
+      "word": "Copenhagen",
+      "similar": [
+        "Stockholm"
+      ]
+    },
+    {
+      "word": "Dublin",
+      "similar": [
+        "Edinburgh"
+      ]
+    }
+  ],
+  "연예인": [
+    {
+      "word": "Tom Cruise",
+      "similar": [
+        "Brad Pitt"
+      ]
+    },
+    {
+      "word": "Leonardo DiCaprio",
+      "similar": [
+        "Johnny Depp"
+      ]
+    },
+    {
+      "word": "Robert Downey Jr.",
+      "similar": [
+        "Chris Evans"
+      ]
+    },
+    {
+      "word": "Dwayne Johnson",
+      "similar": [
+        "Vin Diesel"
+      ]
+    },
+    {
+      "word": "Will Smith",
+      "similar": [
+        "Denzel Washington"
+      ]
+    },
+    {
+      "word": "Keanu Reeves",
+      "similar": [
+        "Tom Hardy"
+      ]
+    },
+    {
+      "word": "Ryan Reynolds",
+      "similar": [
+        "Ryan Gosling"
+      ]
+    },
+    {
+      "word": "Hugh Jackman",
+      "similar": [
+        "Chris Hemsworth"
+      ]
+    },
+    {
+      "word": "Morgan Freeman",
+      "similar": [
+        "Samuel L. Jackson"
+      ]
+    },
+    {
+      "word": "Jackie Chan",
+      "similar": [
+        "Jet Li"
+      ]
+    },
+    {
+      "word": "Scarlett Johansson",
+      "similar": [
+        "Gal Gadot"
+      ]
+    },
+    {
+      "word": "Angelina Jolie",
+      "similar": [
+        "Jennifer Aniston"
+      ]
+    },
+    {
+      "word": "Emma Watson",
+      "similar": [
+        "Emma Stone"
+      ]
+    },
+    {
+      "word": "Meryl Streep",
+      "similar": [
+        "Julia Roberts"
+      ]
+    },
+    {
+      "word": "Natalie Portman",
+      "similar": [
+        "Anne Hathaway"
+      ]
+    },
+    {
+      "word": "Zendaya",
+      "similar": [
+        "Timothee Chalamet"
+      ]
+    },
+    {
+      "word": "Oprah Winfrey",
+      "similar": [
+        "Ellen DeGeneres"
+      ]
+    },
+    {
+      "word": "Taylor Swift",
+      "similar": [
+        "Ariana Grande"
+      ]
+    },
+    {
+      "word": "Beyonce",
+      "similar": [
+        "Rihanna"
+      ]
+    },
+    {
+      "word": "Lady Gaga",
+      "similar": [
+        "Katy Perry"
+      ]
+    },
+    {
+      "word": "Justin Bieber",
+      "similar": [
+        "Shawn Mendes"
+      ]
+    },
+    {
+      "word": "Ed Sheeran",
+      "similar": [
+        "Bruno Mars"
+      ]
+    },
+    {
+      "word": "Adele",
+      "similar": [
+        "Billie Eilish"
+      ]
+    },
+    {
+      "word": "Drake",
+      "similar": [
+        "Kendrick Lamar"
+      ]
+    },
+    {
+      "word": "Eminem",
+      "similar": [
+        "Snoop Dogg"
+      ]
+    }
+  ],
+  "노래(70-80년대)": [
+    {
+      "word": "Bohemian Rhapsody (Queen)",
+      "similar": [
+        "We Will Rock You (Queen)"
+      ]
+    },
+    {
+      "word": "Stayin' Alive (Bee Gees)",
+      "similar": [
+        "Night Fever (Bee Gees)"
+      ]
+    },
+    {
+      "word": "Hotel California (Eagles)",
+      "similar": [
+        "Take It Easy (Eagles)"
+      ]
+    },
+    {
+      "word": "Imagine (John Lennon)",
+      "similar": [
+        "Let It Be (The Beatles)"
+      ]
+    },
+    {
+      "word": "Billie Jean (Michael Jackson)",
+      "similar": [
+        "Beat It (Michael Jackson)"
+      ]
+    },
+    {
+      "word": "Like a Virgin (Madonna)",
+      "similar": [
+        "Material Girl (Madonna)"
+      ]
+    },
+    {
+      "word": "Sweet Child O' Mine (Guns N' Roses)",
+      "similar": [
+        "Livin' on a Prayer (Bon Jovi)"
+      ]
+    },
+    {
+      "word": "Dancing Queen (ABBA)",
+      "similar": [
+        "Mamma Mia (ABBA)"
+      ]
+    },
+    {
+      "word": "Purple Rain (Prince)",
+      "similar": [
+        "When Doves Cry (Prince)"
+      ]
+    },
+    {
+      "word": "Every Breath You Take (The Police)",
+      "similar": [
+        "Message in a Bottle (The Police)"
+      ]
+    },
+    {
+      "word": "Africa (Toto)",
+      "similar": [
+        "Rosanna (Toto)"
+      ]
+    },
+    {
+      "word": "Take On Me (a-ha)",
+      "similar": [
+        "Never Gonna Give You Up (Rick Astley)"
+      ]
+    }
+  ],
+  "노래(00-20년대)": [
+    {
+      "word": "Rolling in the Deep (Adele)",
+      "similar": [
+        "Someone Like You (Adele)"
+      ]
+    },
+    {
+      "word": "Shape of You (Ed Sheeran)",
+      "similar": [
+        "Perfect (Ed Sheeran)"
+      ]
+    },
+    {
+      "word": "Blinding Lights (The Weeknd)",
+      "similar": [
+        "Starboy (The Weeknd)"
+      ]
+    },
+    {
+      "word": "Bad Guy (Billie Eilish)",
+      "similar": [
+        "Ocean Eyes (Billie Eilish)"
+      ]
+    },
+    {
+      "word": "Uptown Funk (Bruno Mars)",
+      "similar": [
+        "24K Magic (Bruno Mars)"
+      ]
+    },
+    {
+      "word": "Shake It Off (Taylor Swift)",
+      "similar": [
+        "Blank Space (Taylor Swift)"
+      ]
+    },
+    {
+      "word": "Umbrella (Rihanna)",
+      "similar": [
+        "Diamonds (Rihanna)"
+      ]
+    },
+    {
+      "word": "Single Ladies (Beyonce)",
+      "similar": [
+        "Crazy in Love (Beyonce)"
+      ]
+    },
+    {
+      "word": "Poker Face (Lady Gaga)",
+      "similar": [
+        "Bad Romance (Lady Gaga)"
+      ]
+    },
+    {
+      "word": "Firework (Katy Perry)",
+      "similar": [
+        "Roar (Katy Perry)"
+      ]
+    },
+    {
+      "word": "Baby (Justin Bieber)",
+      "similar": [
+        "Sorry (Justin Bieber)"
+      ]
+    },
+    {
+      "word": "Thinking Out Loud (Ed Sheeran)",
+      "similar": [
+        "Photograph (Ed Sheeran)"
+      ]
+    },
+    {
+      "word": "Happy (Pharrell Williams)",
+      "similar": [
+        "Get Lucky (Daft Punk)"
+      ]
+    },
+    {
+      "word": "Despacito (Luis Fonsi)",
+      "similar": [
+        "Bailando (Enrique Iglesias)"
+      ]
+    },
+    {
+      "word": "Gangnam Style (PSY)",
+      "similar": [
+        "Dynamite (BTS)"
+      ]
+    },
+    {
+      "word": "Old Town Road (Lil Nas X)",
+      "similar": [
+        "Industry Baby (Lil Nas X)"
+      ]
+    },
+    {
+      "word": "Levitating (Dua Lipa)",
+      "similar": [
+        "Don't Start Now (Dua Lipa)"
+      ]
+    },
+    {
+      "word": "Watermelon Sugar (Harry Styles)",
+      "similar": [
+        "As It Was (Harry Styles)"
+      ]
+    },
+    {
+      "word": "Stay (The Kid LAROI)",
+      "similar": [
+        "Peaches (Justin Bieber)"
+      ]
+    },
+    {
+      "word": "Someone You Loved (Lewis Capaldi)",
+      "similar": [
+        "Say You Won't Let Go (James Arthur)"
+      ]
+    },
+    {
+      "word": "Believer (Imagine Dragons)",
+      "similar": [
+        "Radioactive (Imagine Dragons)"
+      ]
+    },
+    {
+      "word": "Counting Stars (OneRepublic)",
+      "similar": [
+        "Apologize (OneRepublic)"
+      ]
+    },
+    {
+      "word": "Viva La Vida (Coldplay)",
+      "similar": [
+        "Yellow (Coldplay)"
+      ]
+    },
+    {
+      "word": "Mr. Brightside (The Killers)",
+      "similar": [
+        "Somebody Told Me (The Killers)"
+      ]
+    },
+    {
+      "word": "Seven Nation Army (The White Stripes)",
+      "similar": [
+        "Boulevard of Broken Dreams (Green Day)"
+      ]
+    },
+    {
+      "word": "In the End (Linkin Park)",
+      "similar": [
+        "Numb (Linkin Park)"
+      ]
+    },
+    {
+      "word": "Lose Yourself (Eminem)",
+      "similar": [
+        "Without Me (Eminem)"
+      ]
+    },
+    {
+      "word": "Hotline Bling (Drake)",
+      "similar": [
+        "God's Plan (Drake)"
+      ]
+    },
+    {
+      "word": "HUMBLE. (Kendrick Lamar)",
+      "similar": [
+        "DNA. (Kendrick Lamar)"
+      ]
+    },
+    {
+      "word": "Empire State of Mind (Jay-Z)",
+      "similar": [
+        "99 Problems (Jay-Z)"
+      ]
+    },
+    {
+      "word": "Toxic (Britney Spears)",
+      "similar": [
+        "Oops!... I Did It Again (Britney Spears)"
+      ]
+    },
+    {
+      "word": "Complicated (Avril Lavigne)",
+      "similar": [
+        "Sk8er Boi (Avril Lavigne)"
+      ]
+    },
+    {
+      "word": "Hips Don't Lie (Shakira)",
+      "similar": [
+        "Waka Waka (Shakira)"
+      ]
+    },
+    {
+      "word": "Call Me Maybe (Carly Rae Jepsen)",
+      "similar": [
+        "Cups (Anna Kendrick)"
+      ]
+    },
+    {
+      "word": "Wrecking Ball (Miley Cyrus)",
+      "similar": [
+        "Party in the U.S.A. (Miley Cyrus)"
+      ]
+    },
+    {
+      "word": "Royals (Lorde)",
+      "similar": [
+        "Team (Lorde)"
+      ]
+    },
+    {
+      "word": "Chandelier (Sia)",
+      "similar": [
+        "Cheap Thrills (Sia)"
+      ]
+    },
+    {
+      "word": "Sunflower (Post Malone)",
+      "similar": [
+        "Circles (Post Malone)"
+      ]
+    }
+  ],
+  "생활용품": [
+    {
+      "word": "Toothbrush",
+      "similar": [
+        "Toothpaste"
+      ]
+    },
+    {
+      "word": "Towel",
+      "similar": [
+        "Bathrobe"
+      ]
+    },
+    {
+      "word": "Soap",
+      "similar": [
+        "Shampoo"
+      ]
+    },
+    {
+      "word": "Mirror",
+      "similar": [
+        "Comb"
+      ]
+    },
+    {
+      "word": "Socks",
+      "similar": [
+        "Gloves"
+      ]
+    },
+    {
+      "word": "Umbrella",
+      "similar": [
+        "Raincoat"
+      ]
+    },
+    {
+      "word": "Pillow",
+      "similar": [
+        "Blanket"
+      ]
+    },
+    {
+      "word": "Mattress",
+      "similar": [
+        "Sofa"
+      ]
+    },
+    {
+      "word": "Fork",
+      "similar": [
+        "Spoon"
+      ]
+    },
+    {
+      "word": "Knife",
+      "similar": [
+        "Chopsticks"
+      ]
+    },
+    {
+      "word": "Plate",
+      "similar": [
+        "Bowl"
+      ]
+    },
+    {
+      "word": "Mug",
+      "similar": [
+        "Wine Glass"
+      ]
+    },
+    {
+      "word": "Kettle",
+      "similar": [
+        "Coffee Maker"
+      ]
+    },
+    {
+      "word": "Frying Pan",
+      "similar": [
+        "Cooking Pot"
+      ]
+    },
+    {
+      "word": "Refrigerator",
+      "similar": [
+        "Freezer"
+      ]
+    },
+    {
+      "word": "Microwave",
+      "similar": [
+        "Oven"
+      ]
+    },
+    {
+      "word": "Washing Machine",
+      "similar": [
+        "Dishwasher"
+      ]
+    },
+    {
+      "word": "Vacuum Cleaner",
+      "similar": [
+        "Broom"
+      ]
+    },
+    {
+      "word": "Hair Dryer",
+      "similar": [
+        "Curling Iron"
+      ]
+    },
+    {
+      "word": "Scissors",
+      "similar": [
+        "Nail Clippers"
+      ]
+    },
+    {
+      "word": "Wallet",
+      "similar": [
+        "Purse"
+      ]
+    },
+    {
+      "word": "Keys",
+      "similar": [
+        "Keychain"
+      ]
+    },
+    {
+      "word": "Sunglasses",
+      "similar": [
+        "Eyeglasses"
+      ]
+    },
+    {
+      "word": "Backpack",
+      "similar": [
+        "Suitcase"
+      ]
+    },
+    {
+      "word": "Wristwatch",
+      "similar": [
+        "Bracelet"
+      ]
+    },
+    {
+      "word": "Candle",
+      "similar": [
+        "Desk Lamp"
+      ]
+    },
+    {
+      "word": "Trash Can",
+      "similar": [
+        "Recycling Bin"
+      ]
+    },
+    {
+      "word": "TV Remote",
+      "similar": [
+        "Game Controller"
+      ]
+    }
+  ],
+  "스포츠종목": [
+    {
+      "word": "Soccer",
+      "similar": [
+        "Futsal"
+      ]
+    },
+    {
+      "word": "Basketball",
+      "similar": [
+        "Handball"
+      ]
+    },
+    {
+      "word": "Baseball",
+      "similar": [
+        "Softball"
+      ]
+    },
+    {
+      "word": "American Football",
+      "similar": [
+        "Rugby"
+      ]
+    },
+    {
+      "word": "Tennis",
+      "similar": [
+        "Badminton"
+      ]
+    },
+    {
+      "word": "Table Tennis",
+      "similar": [
+        "Squash"
+      ]
+    },
+    {
+      "word": "Golf",
+      "similar": [
+        "Mini Golf"
+      ]
+    },
+    {
+      "word": "Volleyball",
+      "similar": [
+        "Beach Volleyball"
+      ]
+    },
+    {
+      "word": "Ice Hockey",
+      "similar": [
+        "Inline Hockey"
+      ]
+    },
+    {
+      "word": "Swimming",
+      "similar": [
+        "Diving"
+      ]
+    },
+    {
+      "word": "Boxing",
+      "similar": [
+        "MMA"
+      ]
+    },
+    {
+      "word": "Wrestling",
+      "similar": [
+        "Judo"
+      ]
+    },
+    {
+      "word": "Karate",
+      "similar": [
+        "Taekwondo"
+      ]
+    },
+    {
+      "word": "Skiing",
+      "similar": [
+        "Snowboarding"
+      ]
+    },
+    {
+      "word": "Figure Skating",
+      "similar": [
+        "Speed Skating"
+      ]
+    },
+    {
+      "word": "Cycling",
+      "similar": [
+        "Mountain Biking"
+      ]
+    },
+    {
+      "word": "Surfing",
+      "similar": [
+        "Skateboarding"
+      ]
+    },
+    {
+      "word": "Marathon",
+      "similar": [
+        "Triathlon"
+      ]
+    },
+    {
+      "word": "Archery",
+      "similar": [
+        "Shooting"
+      ]
+    },
+    {
+      "word": "Gymnastics",
+      "similar": [
+        "Rhythmic Gymnastics"
+      ]
+    },
+    {
+      "word": "Cricket",
+      "similar": [
+        "Polo"
+      ]
+    }
+  ],
+  "역사인물": [
+    {
+      "word": "Napoleon",
+      "similar": [
+        "Julius Caesar"
+      ]
+    },
+    {
+      "word": "Alexander the Great",
+      "similar": [
+        "Genghis Khan"
+      ]
+    },
+    {
+      "word": "Cleopatra",
+      "similar": [
+        "Marie Antoinette"
+      ]
+    },
+    {
+      "word": "George Washington",
+      "similar": [
+        "Abraham Lincoln"
+      ]
+    },
+    {
+      "word": "Winston Churchill",
+      "similar": [
+        "Franklin D. Roosevelt"
+      ]
+    },
+    {
+      "word": "Albert Einstein",
+      "similar": [
+        "Isaac Newton"
+      ]
+    },
+    {
+      "word": "Leonardo da Vinci",
+      "similar": [
+        "Michelangelo"
+      ]
+    },
+    {
+      "word": "Christopher Columbus",
+      "similar": [
+        "Ferdinand Magellan"
+      ]
+    },
+    {
+      "word": "Martin Luther King Jr.",
+      "similar": [
+        "Nelson Mandela"
+      ]
+    },
+    {
+      "word": "Mahatma Gandhi",
+      "similar": [
+        "Mother Teresa"
+      ]
+    },
+    {
+      "word": "Joan of Arc",
+      "similar": [
+        "Queen Elizabeth I"
+      ]
+    },
+    {
+      "word": "Marie Curie",
+      "similar": [
+        "Florence Nightingale"
+      ]
+    },
+    {
+      "word": "Beethoven",
+      "similar": [
+        "Mozart"
+      ]
+    },
+    {
+      "word": "William Shakespeare",
+      "similar": [
+        "Charles Dickens"
+      ]
+    },
+    {
+      "word": "Thomas Edison",
+      "similar": [
+        "Nikola Tesla"
+      ]
+    }
+  ]
+}
