@@ -1033,6 +1033,8 @@
     document.querySelectorAll('[data-i18n-aria]').forEach(el => {
       el.setAttribute('aria-label', TX(el.getAttribute('data-i18n-aria')));
     });
+    const introImg = document.getElementById('intro-img');
+    if (introImg) introImg.src = LANG === 'en' ? './arcade-en.png' : './arcade.png';
     const lt = document.getElementById('lang-toggle');
     if (lt) lt.textContent = LANG === 'ko' ? 'EN' : 'KO';
     updateTimerLabel();
@@ -1046,14 +1048,14 @@
     applyLang();
   }
 
-  const CATEGORIES = ['동물','직업','음식','국가','랜드마크','축구선수','스포츠스타','스포츠종목','역사인물','생활용품','브랜드','유명도시','연예인','노래','직접입력'];
+  const CATEGORIES = ['동물','직업','음식','국가','랜드마크','축구선수','스포츠스타','스포츠종목','역사인물','영화','브랜드','유명도시','연예인','노래','직접입력','생활용품'];
   const SONG_CATS = ['노래(70-80년대)', '노래(00-20년대)'];
   const CAT_LABEL = {
     ko: { '스포츠스타':'스포츠 스타', '스포츠종목':'스포츠 종목' },
     en: { '동물':'Animals','직업':'Jobs','음식':'Food','국가':'Countries','랜드마크':'Landmarks',
           '축구선수':'Footballers','스포츠스타':'Sports Stars','스포츠종목':'Sports','역사인물':'History',
           '생활용품':'Household','브랜드':'Brands','유명도시':'Cities','연예인':'Celebrities',
-          '노래':'Songs','직접입력':'Custom' }
+          '노래':'Songs','직접입력':'Custom','영화':'Movies' }
   };
   const catLabel = (c) => (CAT_LABEL[LANG] && CAT_LABEL[LANG][c]) || c;
   const ERA_LABEL = { '노래(70-80년대)':'era7080', '노래(00-20년대)':'era0020' };
@@ -1179,8 +1181,7 @@
       console.error('단어 로드 실패', e);
     }
   }
-  applyLang();
-  loadWords();
+  loadWords().then(applyLang);
 
   // ── 화면 전환 ──
   function goTo(id) {
@@ -1259,7 +1260,8 @@
       const flippedKey = 'flipped_' + cat;
       // 이전 라운드가 뒤집기였는지 확인 → 번갈아가며 전환
       const wasFlipped = state.wordQueue[flippedKey] || false;
-      const shouldFlip = !wasFlipped;
+      // 직접입력은 사용자가 지정한 단어라 뒤집으면 안 됨
+      const shouldFlip = (cat === '직접입력') ? false : !wasFlipped;
       state.wordQueue[flippedKey] = shouldFlip;
 
       const list = [...state.words[cat]];
